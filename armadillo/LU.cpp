@@ -27,9 +27,14 @@ mat LU::get_R(){
 	}
 
 void LU::set_result(mat b){
-	mat SolY, solXUWU;
-	SolY = solve(this->P.t()*this->L,b);
-	cout<<"Solucion Y con LU: \n";
+	mat SolY, solXUWU, invL, invU, invP;
+	//SolY = solve(this->P.t()*this->L,b);
+	invL = inv(L);
+	invU = inv(U);
+	invP = inv(P.t());
+	SolY = invL*invP*b;
+	//cout<<"Solucion Y con LU: \n";
 	//cout<<SolY;
-	this->resultado = solve(this->U,SolY);
+	//this->resultado = solve(this->U,SolY);
+	this->resultado = invU*SolY;
 	}
