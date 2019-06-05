@@ -6,6 +6,7 @@
 #include "LU.h"
 #include "obtainTime.h"
 #include "Chol.h"
+#include "QR.h"
 using namespace std; 
 using namespace arma;
 timespec diff(timespec start, timespec end);
@@ -19,6 +20,7 @@ int main(int argc, const char **argv) {
 	//clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time2);
 	LU lu;
 	Chol cholesky;
+	QR qr;
 	obtainTime t;
 	Matrix m;
 	m.set_values();
@@ -32,9 +34,15 @@ int main(int argc, const char **argv) {
 	cout<<diff(time1,time2).tv_sec<<":"<<diff(time1,time2).tv_nsec<<endl;//SEGUNDOS Y NANOSEGUNDOS
 	cholesky.set_values(m.get_value("A289"));
 	cholesky.set_result(m.get_value("b289"));
+	qr.set_values(m.get_value("A289"));
+	qr.set_result(m.get_value("b289"));
 	bool algo = approx_equal( lu.get_R(), cholesky.get_R(), "reldiff", 0.02 );
 	if(algo == true){
 		cout<< "resultados iguales uwu\n";
+		}
+	bool algo2 = approx_equal( lu.get_R(), qr.get_Resultado(), "reldiff", 0.02 );
+	if(algo2 == true){
+		cout<< "resultados iguales uwu LU y QR\n";
 		}
 	 
 	return 0;

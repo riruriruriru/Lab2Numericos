@@ -1,2 +1,2 @@
-g++ uwu2.cpp matrix.cpp LU.cpp obtainTime.cpp Chol.cpp -o main -larmadillo -O2
+g++ uwu2.cpp matrix.cpp LU.cpp obtainTime.cpp Chol.cpp QR.cpp -o main -larmadillo -O2
 ./main
