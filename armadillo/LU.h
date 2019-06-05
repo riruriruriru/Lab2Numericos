@@ -13,7 +13,7 @@ using namespace std;
 		mat get_U();
 		mat get_P();
 		mat get_R();
-		void set_result(mat A, mat B); 
+		void set_result(mat b); 
 	};
 #endif
 //g++ uwu2.cpp matrix.cpp -o main -larmadillo -O2

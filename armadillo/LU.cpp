@@ -26,6 +26,10 @@ mat LU::get_R(){
 	return this->resultado;
 	}
 
-void LU::set_result(mat A, mat B){
-	return;
+void LU::set_result(mat b){
+	mat SolY, solXUWU;
+	SolY = solve(this->P.t()*this->L,b);
+	cout<<"Solucion Y con LU: \n";
+	//cout<<SolY;
+	this->resultado = solve(this->U,SolY);
 	}

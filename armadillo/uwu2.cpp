@@ -10,13 +10,9 @@ timespec diff(timespec start, timespec end);
  
 
 int main(int argc, const char **argv) {	
-	mat solX(3,1);
-	mat matrizA = {{1, 1, 1}, {4, 3, -1}, {3, 5, 3}}; 
-    mat B(3,1);
-    B(0,0) = 1;
-    B(1,0) = 6;
-    B(2,0) = 4; 
     //I = pinv(A);
+    //Ly = b
+    //Ux = y
     //P.t()*L*U*x = b
     //cout << I;
 	mat ident = eye(5,5);
@@ -30,22 +26,37 @@ int main(int argc, const char **argv) {
 	// automatically detect format type while loading
 	Matrix m;
 	m.set_values();
-	mat uwu;
-	uwu = m.get_value("A289");
+	mat A289;
+	A289 = m.get_value("A289");
+	mat solX, b289;
+	b289 = m.get_value("b289");
 	//cout << uwu;
 	LU lu;
 	cout<< "UWU\n";
-	lu.set_values(matrizA);
-	cout << lu.get_L();
-	cout << "OWO\n";
-	cout << matrizA;
-	cout << "OWO\n";
-	cout << B;
+	lu.set_values(A289);
+	//cout << lu.get_L();
 	cout << "OWO\n";
 	cout << solX;
 	cout << "SOLUCION: \n";
-	solX = solve( matrizA, B );
-	cout << solX;
+	solX = solve( A289, b289 );
+	//cout << solX;
+	mat SolY, solXUWU;
+	SolY = solve(lu.get_P().t()*lu.get_L(),b289);
+	cout<<"Solucion Y con LU: \n";
+	//cout<<SolY;
+	solXUWU = solve(lu.get_U(),SolY);
+	cout<< "Solucion x con LU: \n";
+	//cout<< solXUWU;
+	lu.set_result(b289);
+	bool boolean = approx_equal(solX, lu.get_R(), "reldiff", 0.002);
+	if(boolean == true){
+		cout<<"TRUE\n";
+		cout<<solXUWU;
+		cout<<"\n";
+		}
+	else{
+		cout<<"GALSE";
+		}
 	return 0;
 	
  }
