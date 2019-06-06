@@ -28,5 +28,5 @@ void Chol::set_result(mat b){
 	//cout<<SolY;
 	//this->resultado = solve(this->U,SolY);
 	this->resultado = invLtrans*SolY;
-	cout<< this->resultado;
+	//cout<< this->resultado;
 	}

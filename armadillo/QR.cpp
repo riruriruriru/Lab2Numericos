@@ -32,5 +32,4 @@ void QR::set_result(mat b){
 	//cout<<SolY;
 	//this->resultado = solve(this->U,SolY);
 	this->resultado = invR*SolY;
-	cout<< this->resultado;
 	}

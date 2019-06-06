@@ -7,6 +7,8 @@
 #include "obtainTime.h"
 #include "Chol.h"
 #include "QR.h"
+#include "Givens.h"
+
 using namespace std; 
 using namespace arma;
 timespec diff(timespec start, timespec end);
@@ -21,6 +23,7 @@ int main(int argc, const char **argv) {
 	LU lu;
 	Chol cholesky;
 	QR qr;
+	Givens giv;
 	obtainTime t;
 	Matrix m;
 	m.set_values();
@@ -36,6 +39,8 @@ int main(int argc, const char **argv) {
 	cholesky.set_result(m.get_value("b289"));
 	qr.set_values(m.get_value("A289"));
 	qr.set_result(m.get_value("b289"));
+	giv.set_values(m.get_value("A289"));
+	giv.set_result(m.get_value("b289"));
 	bool algo = approx_equal( lu.get_R(), cholesky.get_R(), "reldiff", 0.02 );
 	if(algo == true){
 		cout<< "resultados iguales uwu\n";
@@ -44,7 +49,10 @@ int main(int argc, const char **argv) {
 	if(algo2 == true){
 		cout<< "resultados iguales uwu LU y QR\n";
 		}
-	 
+	bool algo3 = approx_equal( lu.get_R(), giv.get_Resultado(), "reldiff", 0.02 );
+	if(algo3 == true){
+		cout<< "resultados iguales uwu LU y GIV\n";
+		} 
 	return 0;
 	
  }
