@@ -8,7 +8,7 @@
 #include "Chol.h"
 #include "QR.h"
 #include "Givens.h"
-
+#include "Seidel.h"
 using namespace std; 
 using namespace arma;
 timespec diff(timespec start, timespec end);
@@ -28,12 +28,12 @@ int main(int argc, const char **argv) {
 	Matrix m;
 	m.set_values();
 	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time1);
-	//t.init_time_LU();
+	t.init_time_LU();
 	lu.set_values(m.get_value("A289"));
 	lu.set_result(m.get_value("b289"));
 	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time2);
-	//t.end_time_LU();
-	//t.set_total_timeLU();
+	t.end_time_LU();
+	t.set_total_timeLU();
 	cout<<diff(time1,time2).tv_sec<<":"<<diff(time1,time2).tv_nsec<<endl;//SEGUNDOS Y NANOSEGUNDOS
 	cholesky.set_values(m.get_value("A289"));
 	cholesky.set_result(m.get_value("b289"));
@@ -49,6 +49,8 @@ int main(int argc, const char **argv) {
 	if(algo2 == true){
 		cout<< "resultados iguales uwu LU y QR\n";
 		}
+	cout<<"Resultado QR: \n";
+	cout<<qr.get_Resultado();
 	bool algo3 = approx_equal( lu.get_R(), giv.get_Resultado(), "reldiff", 0.02 );
 	if(algo3 == true){
 		cout<< "resultados iguales uwu LU y GIV\n";

@@ -1,5 +1,6 @@
+#include <iostream>
 #include <armadillo>
-#include <string> // for string class
+#include <string>
 #include <time.h>
 #ifndef OBTAIN_TIME_H // include guard
 #define OBTAIN_TIME_H
@@ -7,7 +8,8 @@ using namespace arma;
 using namespace std;
 	class obtainTime {
 	  public:
-		timespec timeLU[4], timeCholesky[4], timeQR[4], timeGivens[4], timeHousholder[4];
+		timespec timeLU[2], timeCholesky[2], timeQR[2], timeGivens[2], timeHousholder[2];
+		long timeLUSec, timeLUNSec, timeChoSec, timeChoNSec, timeQRSec, timeQRNSec, timeGivSec, timeGivNSec;
 	  public:
 		void init_time_LU();
 		void init_time_Cholesky();
@@ -23,6 +25,15 @@ using namespace std;
 		void set_total_timeCholesky();
 		void set_total_timeQR();
 		void set_total_timeGivens();
-		void set_total_timeHouseholder(); 
+		void set_total_timeHouseholder();
+		long diff(timespec start, timespec end, int type);
+		long get_timeLUSec();
+		long get_timeLUNSec();
+		long get_timeChoSec();
+		long get_timeChoNSec();
+		long get_timeQRSec();
+		long get_timeQRNSec();
+		long get_timeGivSec();
+		long get_timeGivNSec(); 
 	};
 #endif

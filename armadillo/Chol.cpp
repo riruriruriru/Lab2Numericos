@@ -4,7 +4,7 @@
 using namespace arma;
 using namespace std;
 
-//CHOLESKY UPPER
+//CHOLESKY LOWER
 
 void Chol::set_values (mat A){
 	mat L;
