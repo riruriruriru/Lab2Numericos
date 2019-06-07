@@ -14,6 +14,7 @@ void Givens::set_values (mat A){
     int m = A.n_rows;
     int n = A.n_cols;
     R = A;
+    Q=eye<mat>(m,n);
     //this->A = A;
     /*Q = eye<mat>(m,m);;
     for(i=0;i<n;i++){
@@ -35,7 +36,6 @@ void Givens::set_values (mat A){
 	}
 	*/
 	//[m, n] = size(A);
-	Q=eye<mat>(m,m);
 	for(j=0;j<n;j++){
 		for(i=j+1;i<m;i++){
 			if (A(i,j)!=0){
@@ -43,7 +43,7 @@ void Givens::set_values (mat A){
 				xj = A(i,j);
 				G = makeGivens(m,i,j,xi,xj);
 				Q = Q*G.t();
-				A = G*A;
+				A = G.t()*A;
 				
 			}
 		}
@@ -64,6 +64,9 @@ void Givens::set_values (mat A){
 mat Givens::makeGivens(int m,int i,int j,double xi,double xj){
     mat G = eye<mat>(m,m);;
     double t, z, c, s;
+    //raiz = sqrt(pow(R(k,i),2) + pow(R(i,i),2));
+    //s = -R(k,i)/raiz;
+    //c = R(i,i)/raiz;
     if(abs(xj)>abs(xi)){
         t = xi/xj;
         z = sqrt(1+t*t);

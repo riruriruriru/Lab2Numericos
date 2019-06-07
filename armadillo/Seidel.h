@@ -9,7 +9,7 @@ using namespace std;
 		mat resultado;
 	  public:
 		mat get_Resultado();
-		void set_result(mat b); 
+		void set_result(mat A, mat b, double tol); 
 	};
 #endif
 //g++ uwu2.cpp matrix.cpp -o main -larmadillo -O2

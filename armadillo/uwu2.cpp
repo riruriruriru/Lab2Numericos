@@ -25,23 +25,28 @@ int main(int argc, const char **argv) {
 	QR qr;
 	Givens giv;
 	obtainTime t;
+	Seidel sei;
 	Matrix m;
 	m.set_values();
 	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time1);
 	t.init_time_LU();
-	lu.set_values(m.get_value("A289"));
-	lu.set_result(m.get_value("b289"));
+	//lu.set_values(m.get_value("A289"));
+	//lu.set_result(m.get_value("b289"));
 	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time2);
 	t.end_time_LU();
 	t.set_total_timeLU();
 	cout<<diff(time1,time2).tv_sec<<":"<<diff(time1,time2).tv_nsec<<endl;//SEGUNDOS Y NANOSEGUNDOS
-	cholesky.set_values(m.get_value("A289"));
-	cholesky.set_result(m.get_value("b289"));
-	qr.set_values(m.get_value("A289"));
-	qr.set_result(m.get_value("b289"));
-	giv.set_values(m.get_value("A289"));
-	giv.set_result(m.get_value("b289"));
-	bool algo = approx_equal( lu.get_R(), cholesky.get_R(), "reldiff", 0.02 );
+	//cholesky.set_values(m.get_value("A289"));
+	//cholesky.set_result(m.get_value("b289"));
+	//qr.set_values(m.get_value("A289"));
+	//qr.set_result(m.get_value("b289"));
+	//giv.set_values(m.get_value("A289"));
+	//giv.set_result(m.get_value("b289"));
+	sei.set_result(m.get_value("A289"), m.get_value("b289"), pow(10,-18));
+	cout<<"Resultado seidel: \n";
+	cout<<sei.get_Resultado()<<endl;
+	cout<<"UWU"<<endl;
+	/*bool algo = approx_equal( lu.get_R(), cholesky.get_R(), "reldiff", 0.02 );
 	if(algo == true){
 		cout<< "resultados iguales uwu\n";
 		}
@@ -55,6 +60,7 @@ int main(int argc, const char **argv) {
 	if(algo3 == true){
 		cout<< "resultados iguales uwu LU y GIV\n";
 		} 
+	*/
 	return 0;
 	
  }
