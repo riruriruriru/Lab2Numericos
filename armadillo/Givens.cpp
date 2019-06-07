@@ -7,14 +7,14 @@ using namespace std;
 //GIVENS
 
 void Givens::set_values (mat A){
-	mat Q, R, G;
+	mat Q, R;
 	//double raiz, s, c;
 	double xi, xj;
 	int i, j, k;
     int m = A.n_rows;
     int n = A.n_cols;
     R = A;
-    Q=eye<mat>(m,n);
+    Q=Q.eye(m,n);
     //this->A = A;
     /*Q = eye<mat>(m,m);;
     for(i=0;i<n;i++){
@@ -38,50 +38,66 @@ void Givens::set_values (mat A){
 	//[m, n] = size(A);
 	for(j=0;j<n;j++){
 		for(i=j+1;i<m;i++){
-			if (A(i,j)!=0){
-				xi = A(i,j);
-				xj = A(i,j);
-				G = makeGivens(m,i,j,xi,xj);
+			if (R(i,j)!=0){
+				xi = R(i,j);
+				xj = R(i,j);
+				mat G = makeGivens(m,i,j,xi,xj);
 				Q = Q*G.t();
-				A = G.t()*A;
+				R = G*R;
 				
 			}
 		}
 	}
+/*[m, n] = size(A);
+Q=eye(m);
+contGivens = 0;
+contAux = 0;
+for j=1:n
+    for i=1(j+1):m;
+        if A(i,j)~=0
+            xi = A(i,j);
+            xj = A(i,j);
+            [G,contAux] = makeGivens(m,i,j,xi,xj);
+            Q = Q*G';
+            A = G*A;
+            [n1,m1] = size(A);
+            [n2,m2] = size(Q);
+            [n3,m3] = size(G);
+            contGivens = contGivens+2 + contAux + (n1*m1)+(n2*m2)+(n3*m3);
+        end
+    end
+end
+%r = triu(A);
+
+X=inv(A) * Q' * b;
+*/	
 	cout<<"Terminando givens..."<<endl;
 	this->Q = Q;
 	this->R = R;
 	this->A = A;
-	int uwu3 = Q.n_rows;
-	int uwu4 = R.n_rows;
-	if(uwu3 ==0){
-		cout<< "matriz Q"<<uwu3<<endl;
-	}
-	if(uwu4 ==0){
-		cout<< "matriz R"<<uwu4<<endl;
-	}
 }
 mat Givens::makeGivens(int m,int i,int j,double xi,double xj){
-    mat G = eye<mat>(m,m);;
+    mat G;
+    G = G.eye(m,m);
     double t, z, c, s;
     //raiz = sqrt(pow(R(k,i),2) + pow(R(i,i),2));
     //s = -R(k,i)/raiz;
     //c = R(i,i)/raiz;
     if(abs(xj)>abs(xi)){
         t = xi/xj;
-        z = sqrt(1+t*t);
+        z = sqrt(1+pow(t,2));
         s = 1/z;
         c = t*s;
 	}
     else{
         t = xj/xi;
-        z = sqrt(1+t*t);
+        z = sqrt(1+pow(t,2));
         c = 1/z;
         s = t*c;
     }
     G(i,i) = c;
     G(i,j) = c;
-    G(i,j) = -s;
+    G(j,j) = -s;
     G(j,i) = s;
     return G;
 
@@ -107,7 +123,7 @@ void Givens::set_result(mat b){
 	//cout<<SolY;
 	//this->resultado = solve(this->U,SolY);
 	//this->resultado = invR*SolY;
-	this->resultado = inv(this->A)*this->Q.t()*b;
+	this->resultado = inv(this->R)*this->Q.t()*b;
 	cout<<"resultado givens: \n";
 	cout<<this->resultado;
 	}
