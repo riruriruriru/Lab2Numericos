@@ -7,7 +7,7 @@ using namespace std;
 //GIVENS
 
 void Givens::set_values (mat A){
-	mat Q, R;
+	sp_mat Q, R;
 	//mat G;
 	double raiz, s, c;
 	double xi, xj;
@@ -45,12 +45,13 @@ void Givens::set_values (mat A){
 			if (R(i,j)!=0){
 				xi = R(i,j);
 				xj = R(i,j);
-				mat G = makeGivens(m,i,j,xi,xj);
+				sp_mat G = makeGivens(m,i,j,xi,xj);
 				Q = Q*G.t();
 				R = G*R;
 				
 			}
 		}
+		cout<<"iteracion: i-j "<< j <<"-" <<i<<endl;
 	}
 /*[m, n] = size(A);
 Q=eye(m);
@@ -80,8 +81,8 @@ X=inv(A) * Q' * b;
 	this->R = R;
 	this->A = A;
 }
-mat Givens::makeGivens(int m,int i,int j,double xi,double xj){
-    mat G;
+sp_mat Givens::makeGivens(int m,int i,int j,double xi,double xj){
+    sp_mat G;
     G = G.eye(m,m);
     double t, z, c, s;
     //raiz = sqrt(pow(R(k,i),2) + pow(R(i,i),2));

@@ -12,7 +12,7 @@ using namespace std;
 		mat get_Q();
 		mat get_R();
 		mat get_Resultado();
-		mat makeGivens(int m,int i,int j,double xi,double xj);
+		sp_mat makeGivens(int m,int i,int j,double xi,double xj);
 		void set_result(mat b); 
 		void save_res(int type);
 	};
