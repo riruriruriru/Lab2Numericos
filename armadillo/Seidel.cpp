@@ -100,3 +100,14 @@ contSeidel = contSeidel+2;
 mat Seidel::get_Resultado(){
 	return this->resultado;
 	}
+void Seidel::save_res(int type){
+	if(type == 289){
+		this->resultado.save("Seidel289.dat");
+		}
+	else if(type == 1089){
+		this->resultado.save("Seidel1089.dat");
+		}
+	else if(type == 4225){
+		this->resultado.save("Seidel4225.dat");
+		}
+	}

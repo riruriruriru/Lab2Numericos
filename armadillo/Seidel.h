@@ -9,6 +9,7 @@ using namespace std;
 		mat resultado;
 	  public:
 		mat get_Resultado();
+		void save_res(int type);
 		void set_result(mat A, mat b, double tol); 
 	};
 #endif

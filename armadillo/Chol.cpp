@@ -30,3 +30,15 @@ void Chol::set_result(mat b){
 	this->resultado = invLtrans*SolY;
 	//cout<< this->resultado;
 	}
+
+void Chol::save_res(int type){
+	if(type == 289){
+		this->resultado.save("Chol289.dat");
+		}
+	else if(type == 1089){
+		this->resultado.save("Chol1089.dat");
+		}
+	else if(type == 4225){
+		this->resultado.save("Chol4225.dat");
+		}
+	}

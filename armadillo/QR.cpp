@@ -33,3 +33,16 @@ void QR::set_result(mat b){
 	//this->resultado = solve(this->U,SolY);
 	this->resultado = invR*SolY;
 	}
+	
+
+void QR::save_res(int type){
+	if(type == 289){
+		this->resultado.save("QR289.dat");
+		}
+	else if(type == 1089){
+		this->resultado.save("QR1089.dat");
+		}
+	else if(type == 4225){
+		this->resultado.save("QR4225.dat");
+		}
+	}

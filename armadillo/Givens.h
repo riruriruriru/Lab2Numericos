@@ -14,6 +14,7 @@ using namespace std;
 		mat get_Resultado();
 		mat makeGivens(int m,int i,int j,double xi,double xj);
 		void set_result(mat b); 
+		void save_res(int type);
 	};
 #endif
 //g++ uwu2.cpp matrix.cpp -o main -larmadillo -O2

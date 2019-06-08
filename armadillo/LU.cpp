@@ -38,3 +38,15 @@ void LU::set_result(mat b){
 	//this->resultado = solve(this->U,SolY);
 	this->resultado = invU*SolY;
 	}
+
+void LU::save_res(int type){
+	if(type == 289){
+		this->resultado.save("LU289.dat");
+		}
+	else if(type == 1089){
+		this->resultado.save("LU1089.dat");
+		}
+	else if(type == 4225){
+		this->resultado.save("LU4225.dat");
+		}
+	}

@@ -39,6 +39,10 @@ void obtainTime::init_time_QR(){
 void obtainTime::init_time_Givens(){
 	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &this->timeGivens[0]);
 	}
+void obtainTime::init_time_Seidel(){
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &this->timeSeidel[0]);
+	}
+
 void obtainTime::end_time_LU(){
 	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &this->timeLU[1]);
 	}
@@ -51,6 +55,9 @@ void obtainTime::end_time_QR(){
 void obtainTime::end_time_Givens(){
 	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &this->timeGivens[1]);
 	}
+void obtainTime::end_time_Seidel(){
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &this->timeSeidel[1]);
+	}
 void obtainTime::set_total_timeLU(){
 	timespec time1, time2;
 	time1 = this->timeLU[0];
@@ -59,9 +66,39 @@ void obtainTime::set_total_timeLU(){
 	this->timeLUNSec = this->diff(time1,time2,2);//NANOSEGUNDOS
 	cout<<this->timeLUSec<<":"<<this->timeLUNSec<<endl;
 	}
-void obtainTime::set_total_timeCholesky(){}
-void obtainTime::set_total_timeQR(){}
-void obtainTime::set_total_timeGivens(){}
+void obtainTime::set_total_timeCholesky(){
+	timespec time1, time2;
+	time1 = this->timeCholesky[0];
+	time2 = this->timeCholesky[1];
+	this->timeChoSec = this->diff(time1,time2,1);//SEGUNDOS
+	this->timeChoNSec = this->diff(time1,time2,2);//NANOSEGUNDOS
+	cout<<this->timeChoSec<<":"<<this->timeChoNSec<<endl;
+	}
+void obtainTime::set_total_timeQR(){
+	timespec time1, time2;
+	time1 = this->timeQR[0];
+	time2 = this->timeQR[1];
+	this->timeQRSec = this->diff(time1,time2,1);//SEGUNDOS
+	this->timeQRNSec = this->diff(time1,time2,2);//NANOSEGUNDOS
+	cout<<this->timeQRSec<<":"<<this->timeQRNSec<<endl;
+	}
+void obtainTime::set_total_timeGivens(){
+	timespec time1, time2;
+	time1 = this->timeGivens[0];
+	time2 = this->timeGivens[1];
+	this->timeGivSec = this->diff(time1,time2,1);//SEGUNDOS
+	this->timeGivNSec = this->diff(time1,time2,2);//NANOSEGUNDOS
+	cout<<this->timeGivSec<<":"<<this->timeGivNSec<<endl;
+	}
+void obtainTime::set_total_timeSeidel(){
+	timespec time1, time2;
+	time1 = this->timeSeidel[0];
+	time2 = this->timeSeidel[1];
+	this->timeSeiSec = this->diff(time1,time2,1);//SEGUNDOS
+	this->timeSeiNSec = this->diff(time1,time2,2);//NANOSEGUNDOS
+	cout<<this->timeSeiSec<<":"<<this->timeSeiNSec<<endl;
+	
+	}
 long obtainTime::get_timeLUSec(){
 	return this->timeLUSec;
 	}
@@ -85,5 +122,42 @@ long obtainTime::get_timeGivSec(){
 	}
 long obtainTime::get_timeGivNSec(){
 	return this->timeGivNSec;
+	}
+
+long obtainTime::get_timeSeiSec(){
+	return this->timeSeiSec;
+	}
+long obtainTime::get_timeSeiNSec(){
+	return this->timeSeiNSec;
+	}
+void obtainTime::save_times(int type){
+	vec tSec = zeros<vec>(5);
+	vec tNSec = zeros<vec>(5);
+	tSec(0) = this->timeLUSec;
+	tSec(1) = this->timeChoSec;
+	tSec(2) = this->timeQRSec;
+	tSec(3) = this->timeGivSec;
+	tSec(4) = this->timeSeiSec;
+	tNSec(0) = this->timeLUNSec;
+	tNSec(1) = this->timeChoNSec;
+	tNSec(2) = this->timeQRNSec;
+	tNSec(3) = this->timeGivNSec;
+	tNSec(4) = this->timeSeiNSec;
+	cout<< "Arreglo segundos"<<endl;
+	cout<< tSec<<endl;
+	cout<< "Arreglo nano segundos"<<endl;
+	cout<< tNSec<<endl;
+	if(type == 289){
+		tSec.save("timeSegundos289.dat", raw_binary);
+		tNSec.save("timeNanoSegundos289.dat", raw_binary);
+		}
+	else if(type == 1089){
+		tSec.save("timeSegundos1089.dat", raw_binary);
+		tNSec.save("timeNanoSegundos1089.dat", raw_binary);
+		}
+	else if(type == 4225){
+		tSec.save("timeSegundos4225.dat", raw_binary);
+		tNSec.save("timeNanoSegundos4225.dat", raw_binary);
+		}
 	}
 
