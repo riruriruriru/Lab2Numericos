@@ -33,7 +33,7 @@ void Seidel::set_result(mat A, mat b, double tol){
     x1 = zeros(n,1);
     errores = zeros(1,n);
     soluciones = zeros(n,1);
-    for(i = 0;i<30;i++){ //CAMBIAR A 1000 ITERACIONES
+    for(i = 0;i<1000;i++){ //CAMBIAR A 1000 ITERACIONES
        jj = inv(D+E) * -F;
        c = inv(D+E) * b;
        x1 = jj*x0 + c;//se calcula la aproximacion de la iteracion actual

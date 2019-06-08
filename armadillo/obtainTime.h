@@ -9,7 +9,7 @@ using namespace std;
 	class obtainTime {
 	  public:
 		timespec timeLU[2], timeCholesky[2], timeQR[2], timeGivens[2], timeSeidel[2];
-		long timeLUSec, timeLUNSec, timeChoSec, timeChoNSec, timeQRSec, timeQRNSec, timeGivSec, timeGivNSec, timeSeiSec, timeSeiNSec;
+		unsigned long long timeLUSec, timeLUNSec, timeChoSec, timeChoNSec, timeQRSec, timeQRNSec, timeGivSec, timeGivNSec, timeSeiSec, timeSeiNSec;
 	  public:
 		void init_time_LU();
 		void init_time_Cholesky();
@@ -26,7 +26,7 @@ using namespace std;
 		void set_total_timeQR();
 		void set_total_timeGivens();
 		void set_total_timeSeidel();
-		long diff(timespec start, timespec end, int type);
+		unsigned long long diff(timespec start, timespec end, int type);
 		long get_timeLUSec();
 		long get_timeLUNSec();
 		long get_timeChoSec();

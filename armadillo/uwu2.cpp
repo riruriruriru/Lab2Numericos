@@ -45,6 +45,7 @@ int main(int argc, const char **argv) {
 //using the parameters from your code
 	Matrix m;
 	m.set_values();
+	//Matriz 289
 	t.init_time_LU();
 	lu.set_values(m.get_value("A289"));
 	lu.set_result(m.get_value("b289"));
@@ -65,11 +66,76 @@ int main(int argc, const char **argv) {
 	giv.set_result(m.get_value("b289"));
 	t.end_time_Givens();
 	t.set_total_timeGivens();
+	cout<<"termino givens"<<endl;
 	t.init_time_Seidel();
 	sei.set_result(m.get_value("A289"), m.get_value("b289"), pow(10,-18));
+	cout<<"termino seidel"<<endl;
 	t.end_time_Seidel();
 	t.set_total_timeSeidel();
 	t.save_times(289);
+	//Fin matriz 289
+	
+	//Inicio matriz 1089
+	t.init_time_LU();
+	lu.set_values(m.get_value("A1089"));
+	lu.set_result(m.get_value("b1089"));
+	t.end_time_LU();
+	t.set_total_timeLU();
+	t.init_time_Cholesky();
+	cholesky.set_values(m.get_value("A1089"));
+	cholesky.set_result(m.get_value("b1089"));
+	t.end_time_Cholesky();
+	t.set_total_timeCholesky();
+	t.init_time_QR();
+	qr.set_values(m.get_value("A1089"));
+	qr.set_result(m.get_value("b1089"));
+	t.end_time_QR();
+	t.set_total_timeQR();
+	t.init_time_Givens();
+	giv.set_values(m.get_value("A1089"));
+	giv.set_result(m.get_value("b1089"));
+	t.end_time_Givens();
+	t.set_total_timeGivens();
+	cout<<"termino givens"<<endl;
+	t.init_time_Seidel();
+	sei.set_result(m.get_value("A1089"), m.get_value("b1089"), pow(10,-18));
+	cout<<"termino seidel"<<endl;
+	t.end_time_Seidel();
+	t.set_total_timeSeidel();
+	t.save_times(1089);
+	//Fin matriz 1089
+	//Inicio matriz 4225
+	
+	t.init_time_LU();
+	lu.set_values(m.get_value("A4225"));
+	lu.set_result(m.get_value("b4225"));
+	t.end_time_LU();
+	t.set_total_timeLU();
+	t.init_time_Cholesky();
+	cholesky.set_values(m.get_value("A4225"));
+	cholesky.set_result(m.get_value("b4225"));
+	t.end_time_Cholesky();
+	t.set_total_timeCholesky();
+	t.init_time_QR();
+	qr.set_values(m.get_value("A4225"));
+	qr.set_result(m.get_value("b4225"));
+	t.end_time_QR();
+	t.set_total_timeQR();
+	t.init_time_Givens();
+	giv.set_values(m.get_value("A4225"));
+	giv.set_result(m.get_value("b4225"));
+	t.end_time_Givens();
+	t.set_total_timeGivens();
+	cout<<"termino givens"<<endl;
+	t.init_time_Seidel();
+	sei.set_result(m.get_value("A4225"), m.get_value("b4225"), pow(10,-18));
+	cout<<"termino seidel"<<endl;
+	t.end_time_Seidel();
+	t.set_total_timeSeidel();
+	t.save_times(4225);
+	
+	//Fin matriz 4225
+	
 	//cout<<"Resultado seidel: \n";
 	//cout<<sei.get_Resultado()<<endl;
 	cout<<"UWU"<<endl;

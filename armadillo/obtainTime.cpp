@@ -9,7 +9,7 @@ using namespace std;
 
 
 
-long obtainTime::diff(timespec start, timespec end, int type)
+unsigned long long obtainTime::diff(timespec start, timespec end, int type)
 {
 	timespec temp;
 	if ((end.tv_nsec-start.tv_nsec)<0) {
