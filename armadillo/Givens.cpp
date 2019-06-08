@@ -8,7 +8,8 @@ using namespace std;
 
 void Givens::set_values (mat A){
 	mat Q, R;
-	//double raiz, s, c;
+	//mat G;
+	double raiz, s, c;
 	double xi, xj;
 	int i, j, k;
     int m = A.n_rows;
@@ -16,8 +17,8 @@ void Givens::set_values (mat A){
     R = A;
     Q=Q.eye(m,n);
     //this->A = A;
-    /*Q = eye<mat>(m,m);;
-    for(i=0;i<n;i++){
+    //Q = eye<mat>(m,m);;
+    /*for(i=0;i<n;i++){
         for(k=i+1;k<m;k++){
             if (R(k,i) != 0){
                 raiz = sqrt(pow(R(k,i),2) + pow(R(i,i),2));
@@ -32,10 +33,13 @@ void Givens::set_values (mat A){
                 R = G.t()*R; // Matriz triangular inferior
 			}
 		}
+		cout<<"iteracion: i-j "<< i <<"-" <<k<<endl;
 		
 	}
 	*/
 	//[m, n] = size(A);
+	
+	//GIVENS ITALIANO
 	for(j=0;j<n;j++){
 		for(i=j+1;i<m;i++){
 			if (R(i,j)!=0){
@@ -123,7 +127,7 @@ void Givens::set_result(mat b){
 	//cout<<SolY;
 	//this->resultado = solve(this->U,SolY);
 	//this->resultado = invR*SolY;
-	this->resultado = inv(this->R)*this->Q.t()*b;
+	this->resultado = inv(this->R)*this->Q.t()*b; //resultado givens italiano
 	//cout<<"resultado givens: \n";
 	//cout<<this->resultado;
 	}

@@ -1,3 +1,7 @@
+#define ARMA_NO_DEBUG
+#define ARMA_USE_BLAS
+#define ARMA_USE_OPENMP
+#define ARMA_64BIT_WORD 
 #include "python3.6/Python.h"
 #include <iostream>
 #include <armadillo>
