@@ -8,7 +8,7 @@ using namespace std;
 
 void Seidel::set_result(mat A, mat b, double tol){
 	int m = A.n_rows;
-	int contador;
+	int contador = 0;
     int n = A.n_cols;
     mat D, E, F, x0;
     int i, j, aux = 1;
@@ -31,10 +31,8 @@ void Seidel::set_result(mat A, mat b, double tol){
     mat ee;
     ee = zeros(1,1);
     double e;
-    x1 = zeros(n,1);
-    errores = zeros(1,n);
-    soluciones = zeros(n,1);
     for(i = 0;i<1000;i++){ //CAMBIAR A 1000 ITERACIONES
+		cout<<"Iteracion: "<<i<<endl;
        jj = inv(D+E) * -F;
        c = inv(D+E) * b;
        x1 = jj*x0 + c;//se calcula la aproximacion de la iteracion actual
@@ -64,6 +62,12 @@ void Seidel::set_result(mat A, mat b, double tol){
     this->err = errores;
 	this->resultado = x0;
 	this->resMat = soluciones;
+	cout<< "Iteraciones"<< this->iteraciones<<endl;
+	cout<< "Error"<< this->error<<endl;
+	cout<< "Soluciones"<<endl;
+	cout<< this->resMat.n_rows<<"-"<<this->resMat.n_cols <<endl;
+	cout<< "Errores"<< endl;
+	cout<< this->err.n_rows<<"-"<<this->err.n_cols <<endl;
 	}
 mat Seidel::get_Resultado(){
 	return this->resultado;

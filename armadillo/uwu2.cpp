@@ -99,7 +99,12 @@ int main(int argc, const char **argv) {
 	if(algo4 == true){
 		cout<< "resultados iguales uwu LU y SEI ultima iteracion\n";
 		} 
-	
+	bool algo5 = approx_equal( sei.get_resMat().col(93), sei.get_Resultado(), "reldiff", 0.02 );
+	if(algo5 == true){
+		
+		cout<< "resultados sei arreglo [final] y SEI ultima iteracion\n";
+		cout<<sei.get_resMat().col(93)<<endl;
+		}
 	
 	
 	

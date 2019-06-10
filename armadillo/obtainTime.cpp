@@ -12,6 +12,7 @@ using namespace std;
 unsigned long long obtainTime::diff(timespec start, timespec end, int type)
 {
 	timespec temp;
+	//cout<<"Nanosegundos: "<<end.tv_nsec<<endl;
 	if ((end.tv_nsec-start.tv_nsec)<0) {
 		temp.tv_sec = end.tv_sec-start.tv_sec-1;
 		temp.tv_nsec = 1000000000+end.tv_nsec-start.tv_nsec;
