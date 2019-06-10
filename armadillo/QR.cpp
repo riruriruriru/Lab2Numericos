@@ -37,12 +37,12 @@ void QR::set_result(mat b){
 
 void QR::save_res(int type){
 	if(type == 289){
-		this->resultado.save("QR289.dat");
+		this->resultado.save("QR289.dat",raw_binary);
 		}
 	else if(type == 1089){
-		this->resultado.save("QR1089.dat");
+		this->resultado.save("QR1089.dat",raw_binary);
 		}
 	else if(type == 4225){
-		this->resultado.save("QR4225.dat");
+		this->resultado.save("QR4225.dat",raw_binary);
 		}
 	}

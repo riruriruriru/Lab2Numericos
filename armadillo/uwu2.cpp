@@ -73,7 +73,35 @@ int main(int argc, const char **argv) {
 	t.end_time_Seidel();
 	t.set_total_timeSeidel();
 	t.save_times(289);
+	lu.save_res(289);
+	cholesky.save_res(289);
+	qr.save_res(289);
+	giv.save_res(289);
+	sei.save_res(289);
 	//Fin matriz 289
+	
+	cout<<"UWU"<<endl;
+	bool algo = approx_equal( lu.get_R(), cholesky.get_R(), "reldiff", 0.02 );
+	if(algo == true){
+		cout<< "resultados iguales uwu\n";
+		}
+	bool algo2 = approx_equal( lu.get_R(), qr.get_Resultado(), "reldiff", 0.02 );
+	if(algo2 == true){
+		cout<< "resultados iguales uwu LU y QR\n";
+		}
+	//cout<<"Resultado QR: \n";
+	//cout<<qr.get_Resultado();
+	bool algo3 = approx_equal( lu.get_R(), giv.get_Resultado(), "reldiff", 0.02 );
+	if(algo3 == true){
+		cout<< "resultados iguales uwu LU y GIV\n";
+		} 
+	bool algo4 = approx_equal( lu.get_R(), sei.get_Resultado(), "reldiff", 0.02 );
+	if(algo4 == true){
+		cout<< "resultados iguales uwu LU y SEI ultima iteracion\n";
+		} 
+	
+	
+	
 	
 	//Inicio matriz 1089
 	t.init_time_LU();
@@ -103,6 +131,11 @@ int main(int argc, const char **argv) {
 	t.end_time_Seidel();
 	t.set_total_timeSeidel();
 	t.save_times(1089);
+	lu.save_res(1089);
+	cholesky.save_res(1089);
+	qr.save_res(1089);
+	giv.save_res(1089);
+	sei.save_res(1089);
 	//Fin matriz 1089
 	//Inicio matriz 4225
 	
@@ -122,8 +155,8 @@ int main(int argc, const char **argv) {
 	t.end_time_QR();
 	t.set_total_timeQR();
 	t.init_time_Givens();
-	giv.set_values(m.get_value("A4225"));
-	giv.set_result(m.get_value("b4225"));
+	//giv.set_values(m.get_value("A4225"));
+	//giv.set_result(m.get_value("b4225"));
 	t.end_time_Givens();
 	t.set_total_timeGivens();
 	cout<<"termino givens"<<endl;
@@ -133,30 +166,16 @@ int main(int argc, const char **argv) {
 	t.end_time_Seidel();
 	t.set_total_timeSeidel();
 	t.save_times(4225);
-	
+	lu.save_res(289);
+	cholesky.save_res(4225);
+	qr.save_res(4225);
+	//giv.save_res(4225);
+	sei.save_res(4225);
 	//Fin matriz 4225
 	
 	//cout<<"Resultado seidel: \n";
 	//cout<<sei.get_Resultado()<<endl;
-	cout<<"UWU"<<endl;
-	bool algo = approx_equal( lu.get_R(), cholesky.get_R(), "reldiff", 0.02 );
-	if(algo == true){
-		cout<< "resultados iguales uwu\n";
-		}
-	bool algo2 = approx_equal( lu.get_R(), qr.get_Resultado(), "reldiff", 0.02 );
-	if(algo2 == true){
-		cout<< "resultados iguales uwu LU y QR\n";
-		}
-	//cout<<"Resultado QR: \n";
-	//cout<<qr.get_Resultado();
-	bool algo3 = approx_equal( lu.get_R(), giv.get_Resultado(), "reldiff", 0.02 );
-	if(algo3 == true){
-		cout<< "resultados iguales uwu LU y GIV\n";
-		} 
-	bool algo4 = approx_equal( lu.get_R(), sei.get_Resultado(), "reldiff", 0.02 );
-	if(algo4 == true){
-		cout<< "resultados iguales uwu LU y SEI ultima iteracion\n";
-		} 
+	
 	cout<<"inicializando python..."<<endl;
 	FILE* cp = fopen("graficar.py", "r");
 	Py_Initialize();

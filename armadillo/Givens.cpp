@@ -40,19 +40,39 @@ void Givens::set_values (mat A){
 	//[m, n] = size(A);
 	
 	//GIVENS ITALIANO
-	for(j=0;j<n;j++){
-		for(i=j+1;i<m;i++){
-			if (R(i,j)!=0){
-				xi = R(i,j);
-				xj = R(i,j);
-				sp_mat G = makeGivens(m,i,j,xi,xj);
-				Q = Q*G.t();
-				R = G*R;
-				
+		/*for(j=0;j<n;j++){
+			for(i=j+1;i<m;i++){
+				if (R(i,j)!=0){
+					xi = R(i,j);
+					xj = R(i,j);
+					sp_mat G = makeGivens(m,i,j,xi,xj);
+					
+					Q = Q*G.t();
+					R = G*R;
+					
+				}
 			}
+			cout<<"iteracion: i-j "<< j <<"-" <<i<<endl;
 		}
-		cout<<"iteracion: i-j "<< j <<"-" <<i<<endl;
-	}
+		*/
+	//Givens nuevo
+	for(j=0;j<n;j++){
+			i = 0;
+				if (R(i,j)!=0){
+					xi = R(i,j);
+					xj = R(i,j);
+					sp_mat G = makeGivens(m,i,j,xi,xj);
+					
+					Q = Q*G.t();
+					R = G*R;
+					
+				}
+			
+			//cout<<"iteracion: i-j "<< j <<"-" <<i<<endl;
+		}
+	
+	
+	
 /*[m, n] = size(A);
 Q=eye(m);
 contGivens = 0;
@@ -135,12 +155,12 @@ void Givens::set_result(mat b){
 
 void Givens::save_res(int type){
 	if(type == 289){
-		this->resultado.save("Givens289.dat");
+		this->resultado.save("Givens289.dat", raw_binary);
 		}
 	else if(type == 1089){
-		this->resultado.save("Givens1089.dat");
+		this->resultado.save("Givens1089.dat",raw_binary);
 		}
 	else if(type == 4225){
-		this->resultado.save("Givens4225.dat");
+		this->resultado.save("Givens4225.dat",raw_binary);
 		}
 	}

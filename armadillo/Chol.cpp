@@ -33,12 +33,12 @@ void Chol::set_result(mat b){
 
 void Chol::save_res(int type){
 	if(type == 289){
-		this->resultado.save("Chol289.dat");
+		this->resultado.save("Chol289.dat",raw_binary);
 		}
 	else if(type == 1089){
-		this->resultado.save("Chol1089.dat");
+		this->resultado.save("Chol1089.dat",raw_binary);
 		}
 	else if(type == 4225){
-		this->resultado.save("Chol4225.dat");
+		this->resultado.save("Chol4225.dat",raw_binary);
 		}
 	}

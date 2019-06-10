@@ -6,8 +6,15 @@ using namespace arma;
 using namespace std;
 	class Seidel {
 	  public:
-		mat resultado;
+		mat resultado, resMat;
+		mat err;
+		mat iteraciones;
+		mat error;
 	  public:
+		mat get_error();
+		mat get_iter();
+		mat get_err();
+		mat get_resMat();
 		mat get_Resultado();
 		void save_res(int type);
 		void set_result(mat A, mat b, double tol); 

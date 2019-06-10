@@ -41,12 +41,12 @@ void LU::set_result(mat b){
 
 void LU::save_res(int type){
 	if(type == 289){
-		this->resultado.save("LU289.dat");
+		this->resultado.save("LU289.dat",raw_binary);
 		}
 	else if(type == 1089){
-		this->resultado.save("LU1089.dat");
+		this->resultado.save("LU1089.dat",raw_binary);
 		}
 	else if(type == 4225){
-		this->resultado.save("LU4225.dat");
+		this->resultado.save("LU4225.dat",raw_binary);
 		}
 	}
