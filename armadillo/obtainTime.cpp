@@ -28,6 +28,27 @@ unsigned long long obtainTime::diff(timespec start, timespec end, int type)
 		}
 	
 }
+void obtainTime::init_time_LS(){
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &this->timeLS[0]);
+	}
+void obtainTime::end_time_LS(){
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &this->timeLS[1]);
+	}
+long obtainTime::get_time_LSSec(){
+	return this->timeLSSec;
+	}
+long obtainTime::get_time_LSNSec(){
+	return this->timeLSNSec;
+	}
+void obtainTime::set_total_timeLS(){
+	timespec time1, time2;
+	time1 = this->timeLS[0];
+	time2 = this->timeLS[1];
+	this->timeLSSec = this->diff(time1,time2,1);//SEGUNDOS
+	this->timeLSNSec = this->diff(time1,time2,2);//NANOSEGUNDOS
+	cout<<this->timeLSSec<<":"<<this->timeLSNSec<<endl;
+	}
+
 void obtainTime::init_time_LU(){
 	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &this->timeLU[0]);
 	}
@@ -132,21 +153,25 @@ long obtainTime::get_timeSeiNSec(){
 	return this->timeSeiNSec;
 	}
 void obtainTime::save_times(int type){
-	vec tSec = zeros<vec>(5);
-	vec tNSec = zeros<vec>(5);
+	vec tSec = zeros<vec>(6);
+	vec tNSec = zeros<vec>(6);
 	tSec(0) = this->timeLUSec;
 	tSec(1) = this->timeChoSec;
 	tSec(2) = this->timeQRSec;
-	tSec(3) = this->timeGivSec;
-	tSec(4) = this->timeSeiSec;
+	tSec(3) = this->timeLSSec;
+	tSec(4) = this->timeGivSec;
+	tSec(5) = this->timeSeiSec;
+	
 	tNSec(0) = this->timeLUNSec;
 	tNSec(1) = this->timeChoNSec;
 	tNSec(2) = this->timeQRNSec;
-	tNSec(3) = this->timeGivNSec;
-	tNSec(4) = this->timeSeiNSec;
-	cout<< "Arreglo segundos"<<endl;
+	tNSec(3) = this->timeLSNSec;
+	tNSec(4) = this->timeGivNSec;
+	tNSec(5) = this->timeSeiNSec;
+	
+	cout<< "Arreglo segundos: LU-CHO-QR-LS-GIV-SEI"<<endl;
 	cout<< tSec<<endl;
-	cout<< "Arreglo nano segundos"<<endl;
+	cout<< "Arreglo nano segundos: LU-CHO-QR-LS-GIV-SEI"<<endl;
 	cout<< tNSec<<endl;
 	if(type == 289){
 		tSec.save("timeSegundos289.dat", raw_binary);

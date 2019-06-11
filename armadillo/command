@@ -1,5 +1,2 @@
 clear
-g++ uwu2.cpp -o nombre -larmadillo -O2
-g++ matrix.cpp -o matrix -larmadillo -O2
-./nombre
-./matrix
+./main

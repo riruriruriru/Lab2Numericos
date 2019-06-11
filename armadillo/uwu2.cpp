@@ -10,6 +10,7 @@
 #include "QR.h"
 #include "Givens.h"
 #include "Seidel.h"
+#include "MinCuadrados.h"
 #define PY_SSIZE_T_CLEAN
 
 using namespace std; 
@@ -27,7 +28,7 @@ int main(int argc, const char **argv) {
 	Givens giv;
 	obtainTime t;
 	Seidel sei;
-	
+	MinCuadrados squared;
 	/*wchar_t *program = Py_DecodeLocale("graficar.py", NULL);
     if (program == NULL) {
         fprintf(stderr, "Fatal error: cannot decode argv[0]\n");
@@ -72,6 +73,12 @@ int main(int argc, const char **argv) {
 	cout<<"termino seidel"<<endl;
 	t.end_time_Seidel();
 	t.set_total_timeSeidel();
+	t.init_time_LS();
+	squared.set_values(m.get_value("A289"));
+	squared.set_result(m.get_value("b289"));
+	t.end_time_LS();
+	t.set_total_timeLS();
+	squared.save_res(289);
 	t.save_times(289);
 	lu.save_res(289);
 	cholesky.save_res(289);
@@ -103,9 +110,14 @@ int main(int argc, const char **argv) {
 	if(algo5 == true){
 		
 		cout<< "resultados sei arreglo [final] y SEI ultima iteracion\n";
-		cout<<sei.get_resMat().col(93)<<endl;
+		//cout<<sei.get_resMat().col(93)<<endl;
 		}
-	
+	bool algo6 = approx_equal( sei.get_resMat().col(93), squared.get_Resultado(), "reldiff", 0.02 );
+	if(algo6 == true){
+		
+		cout<< "resultados sei arreglo [final] y LS\n";
+		//cout<<sei.get_resMat().col(93)<<endl;
+		}
 	
 	
 	//Inicio matriz 1089
@@ -135,6 +147,12 @@ int main(int argc, const char **argv) {
 	cout<<"termino seidel"<<endl;
 	t.end_time_Seidel();
 	t.set_total_timeSeidel();
+	t.init_time_LS();
+	squared.set_values(m.get_value("A1089"));
+	squared.set_result(m.get_value("b1089"));
+	t.end_time_LS();
+	t.set_total_timeLS();
+	squared.save_res(1089);
 	t.save_times(1089);
 	lu.save_res(1089);
 	cholesky.save_res(1089);
@@ -160,8 +178,8 @@ int main(int argc, const char **argv) {
 	t.end_time_QR();
 	t.set_total_timeQR();
 	t.init_time_Givens();
-	//giv.set_values(m.get_value("A4225"));
-	//giv.set_result(m.get_value("b4225"));
+	giv.set_values(m.get_value("A4225"));
+	giv.set_result(m.get_value("b4225"));
 	t.end_time_Givens();
 	t.set_total_timeGivens();
 	cout<<"termino givens"<<endl;
@@ -170,11 +188,17 @@ int main(int argc, const char **argv) {
 	cout<<"termino seidel"<<endl;
 	t.end_time_Seidel();
 	t.set_total_timeSeidel();
+	t.init_time_LS();
+	squared.set_values(m.get_value("A4225"));
+	squared.set_result(m.get_value("b4225"));
+	t.end_time_LS();
+	t.set_total_timeLS();
+	squared.save_res(4225);
 	t.save_times(4225);
 	lu.save_res(289);
 	cholesky.save_res(4225);
 	qr.save_res(4225);
-	//giv.save_res(4225);
+	giv.save_res(4225);
 	sei.save_res(4225);
 	//Fin matriz 4225
 	

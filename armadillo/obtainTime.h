@@ -8,9 +8,14 @@ using namespace arma;
 using namespace std;
 	class obtainTime {
 	  public:
-		timespec timeLU[2], timeCholesky[2], timeQR[2], timeGivens[2], timeSeidel[2];
-		unsigned long long timeLUSec, timeLUNSec, timeChoSec, timeChoNSec, timeQRSec, timeQRNSec, timeGivSec, timeGivNSec, timeSeiSec, timeSeiNSec;
+		timespec timeLU[2], timeCholesky[2], timeQR[2], timeGivens[2], timeSeidel[2], timeLS[2];
+		unsigned long long timeLUSec, timeLUNSec, timeChoSec, timeChoNSec, timeQRSec, timeQRNSec, timeGivSec, timeGivNSec, timeSeiSec, timeSeiNSec, timeLSSec, timeLSNSec;
 	  public:
+		void init_time_LS();
+		void end_time_LS();
+		long get_time_LSSec();
+		long get_time_LSNSec();
+		void set_total_timeLS();
 		void init_time_LU();
 		void init_time_Cholesky();
 		void init_time_QR();

@@ -32,7 +32,7 @@ void Seidel::set_result(mat A, mat b, double tol){
     ee = zeros(1,1);
     double e;
     for(i = 0;i<1000;i++){ //CAMBIAR A 1000 ITERACIONES
-		cout<<"Iteracion: "<<i<<endl;
+		//cout<<"Iteracion: "<<i<<endl;
        jj = inv(D+E) * -F;
        c = inv(D+E) * b;
        x1 = jj*x0 + c;//se calcula la aproximacion de la iteracion actual
