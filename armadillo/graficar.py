@@ -61,9 +61,12 @@ def graphNano(xSec, xNano, labelx, labely, title):
 	y = np.arange(len(objects))
 	cont = 0
 	x = xNano[:]
+	xSec2 = xSec[:]
 	for i in xNano:
-		x[cont] = i + xSec[cont]*10**9
+		x[cont] = i + xSec2[cont]*10**9
 		cont = cont +1
+	print("nanosegundos: ")
+	print(x)
 	plt.bar(y, x, align='center', alpha=0.5)
 	plt.xticks(y, objects)
 	plt.ylabel(labely)
@@ -74,20 +77,23 @@ def graphNano(xSec, xNano, labelx, labely, title):
 	return
 
 
-def graphNanoSinSeidel(xSec, xNano, labelx, labely, title):
+def graphNanoSinSeidel(xSec, xNano,matlab, labelx, labely, title):
 	objects = ('LU', 'Cholesky', 'QR', 'LS','Givens')
 	y = np.arange(len(objects))
 	cont = 0
 	x = xNano[:]
+	xSec2 = xSec[:]
+	matlab2 = matlab[:]
 	for i in xNano:
-		x[cont] = i + xSec[cont]*10**9
+		x[cont] = i + xSec2[cont]*10**9
 		cont = cont +1
-	plt.bar(y, x, align='center', alpha=0.5)
+	p1 = plt.bar(y, x, align='center', alpha=0.5)
 	plt.xticks(y, objects)
 	plt.ylabel(labely)
 	plt.xlabel(labelx)
 	plt.title(title)
-	
+	p2 = plt.bar(y, matlab2*10**9, align='center', alpha=0.5, bottom = x)
+	plt.legend((p1[0], p2[0]), ('Armadillo', 'Matlab'))
 	plt.show()
 	return
 
@@ -96,8 +102,13 @@ def graphSec(xSec, xNano, labelx, labely, title):
 	y = np.arange(len(objects))
 	cont = 0
 	x = xSec[:]
+	xNano2 = xNano[:]
+	print("graph sec con seidel")
+	print("nanosegundos")
+	print(xNano2)
 	for i in xSec:
-		x[cont] = i + xNano[cont]*10**(-9)
+		x[cont] = i + xNano2[cont]*(10**(-9))
+		print(xNano2[cont]*(10**(-9)))
 		cont = cont +1
 	print("Segundos: ")
 	print(x)
@@ -111,17 +122,22 @@ def graphSec(xSec, xNano, labelx, labely, title):
 	return
 
 
-def graphSecSinSeidel(xSec, xNano, labelx, labely, title):
+def graphSecSinSeidel(xSec, xNano,matlab, labelx, labely, title):
 	objects = ('LU', 'Cholesky', 'QR', 'LS','Givens')
 	y = np.arange(len(objects))
 	cont = 0
 	x = xSec[:]
+	xNano2 = xNano[:]
 	for i in xSec:
-		x[cont] = i + xNano[cont]*10**(-9)
+		x[cont] = i + xNano2[cont]*10**(-9)
 		cont = cont +1
-	print("Segundos: ")
+	print("Segundos armadillo: ")
 	print(x)
-	plt.bar(y, x, align='center', alpha=0.5)
+	print("Segundos matlab: ")
+	print(matlab)
+	p1 = plt.bar(y, x, align='center', alpha=0.5)
+	p2 = plt.bar(y, matlab, align='center', alpha=0.5, bottom = x)
+	plt.legend((p1[0], p2[0]), ('Armadillo', 'Matlab'))
 	plt.xticks(y, objects)
 	plt.ylabel(labely)
 	plt.xlabel(labelx)
@@ -153,32 +169,54 @@ solucionesSeidel4225 = np.fromfile('Seidel4225Soluciones.dat',dtype = float)
 solucionSeidel4225 = np.fromfile('Seidel4225Solucion.dat',dtype = float)
 erroresSeidel4225 = np.fromfile('Seidel4225Errores.dat',dtype = float)
 iteracionesSeidel4225 = np.fromfile('Seidel4225Iteraciones.dat',dtype = float)
+#LU CHOLESKY QR LS GIVENS SEIDEL
+
+#tiemposMatlab289SS = [0.145, 0.467, 0.268, 0.314,0.232]
+#tiemposMatlab1089SS = [3.562, 6.894, 5.893, 0.153,1.211]
+#tiemposMatlab4225SS = [325.422, 314.324, 502.967, 5.026, 12.985]
+#seidelMatlab289 = [0.624]
+#seidelMatlab1089 = [68.654]
+#seidelMatlab4225 = [8656.435]
+#np.save("tiemposMatlab289.npy", tiemposMatlab289SS)
+#np.save("tiemposMatlab1089.npy", tiemposMatlab1089SS)
+#np.save("tiemposMatlab4225.npy", tiemposMatlab4225SS)
+#
+#np.save("seidelMatlab289.npy", seidelMatlab289)
+#np.save("seidelMatlab1089.npy", seidelMatlab1089)
+#np.save("seidelMatlab4225.npy", seidelMatlab4225)
+
+tiemposMatlab289SS = np.load("tiemposMatlab289.npy")
+tiemposMatlab1089SS = np.load("tiemposMatlab1089.npy")
+tiemposMatlab4225SS = np.load("tiemposMatlab4225.npy")
+seidelMatlab289 = np.load("seidelMatlab289.npy")
+seidelMatlab1089 = np.load("seidelMatlab1089.npy")
+seidelMatlab4225 = np.load("seidelMatlab4225.npy")
 print("Finalizando python...")
 print(myarraySEC289)
 print(myarrayNSEC289)
 
 #graph([1,2,3,4,5],myarrayNSEC,"Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos, matriz 289x289")
-graphNano(myarraySEC289, myarrayNSEC289, "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 289x289")
-graphSec(myarrayNSEC289,myarraySEC289, "Métodos","Tiempo [Sec]", "Métodos vs Tiempos[Sec], matriz 289x289")
+#graphNano(myarraySEC289, myarrayNSEC289, "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 289x289")
+graphSec(myarraySEC289,myarrayNSEC289, "Métodos","Tiempo [Sec]", "Métodos vs Tiempos[Sec], matriz 289x289")
 graphError(iteracionesSeidel289, erroresSeidel289, "Iteraciones", "Error", "Iteraciones vs Error matriz 289x289, ajuste logarítmico")
-graphNanoSinSeidel(myarraySEC289[:5], myarrayNSEC289[:5], "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 289x289")
-graphSecSinSeidel(myarraySEC289[:5],myarrayNSEC289[:5], "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 289x289")
+graphNanoSinSeidel(myarraySEC289[:5], myarrayNSEC289[:5],tiemposMatlab289SS, "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 289x289 (Sin Seidel)")
+graphSecSinSeidel(myarraySEC289[:5],myarrayNSEC289[:5],tiemposMatlab289SS, "Métodos","Tiempo [Segundos]", "Métodos vs Tiempos[Sec], matriz 289x289 (Sin Seidel)")
+print("nanosegundos")
+print(myarrayNSEC289)
+print("segundos")
+print(myarraySEC289)
 
 
-
-
-graphNano(myarraySEC1089, myarrayNSEC1089, "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 1089x1089")
+#graphNano(myarraySEC1089, myarrayNSEC1089, "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 1089x1089")
 graphError(iteracionesSeidel1089, erroresSeidel1089, "Iteraciones", "Error", "Iteraciones vs Error, matrix 1089x1089, ajuste logarítmico")
-graph2SinSeidel(myarraySEC1089[:5],"Métodos","Tiempo [Segundos]", "Métodos vs Tiempos[Sec], matriz 1089x1089")
-graphNanoSinSeidel(myarraySEC1089[:5], myarrayNSEC1089[:5], "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 1089x1089")
+graphNanoSinSeidel(myarraySEC1089[:5], myarrayNSEC1089[:5],tiemposMatlab1089SS, "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 1089x1089")
 graphSec(myarraySEC1089, myarrayNSEC1089, "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 1089x1089")
-graphSecSinSeidel(myarraySEC1089[:5], myarrayNSEC1089[:5], "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 1089x1089")
+graphSecSinSeidel(myarraySEC1089[:5], myarrayNSEC1089[:5],tiemposMatlab1089SS, "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 1089x1089")
 
 
-graphNano(myarraySEC4225, myarrayNSEC4225, "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 4225x4225")
+#graphNano(myarraySEC4225, myarrayNSEC4225, "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 4225x4225")
 graphError(iteracionesSeidel4225, erroresSeidel4225, "Iteraciones", "Error", "Iteraciones vs Error, matriz 4225x4225, ajuste logarítmico")
-graph2SinSeidel(myarraySEC4225[:5],"Métodos","Tiempo [Segundos]", "Métodos vs Tiempos[Sec], matriz 4225x4225")
-graphNanoSinSeidel(myarraySEC4225[:5], myarrayNSEC4225[:5], "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 4225x4225")
+graphNanoSinSeidel(myarraySEC4225[:5], myarrayNSEC4225[:5], tiemposMatlab4225SS,"Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 4225x4225")
 graphSec(myarraySEC4225, myarrayNSEC4225, "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 4225x4225")
-graphSecSinSeidel(myarraySEC4225[:5], myarrayNSEC4225[:5], "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 4225x4225")
+graphSecSinSeidel(myarraySEC4225[:5], myarrayNSEC4225[:5], tiemposMatlab4225SS,"Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 4225x4225")
 

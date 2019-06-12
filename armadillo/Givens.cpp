@@ -57,7 +57,7 @@ void Givens::set_values (mat A){
 		*/
 	//Givens nuevo
 	for(j=0;j<n;j++){
-			i = 0;
+		for(i=j+1;i<m;i++){
 				if (R(i,j)!=0){
 					xi = R(i,j);
 					xj = R(i,j);
@@ -67,8 +67,9 @@ void Givens::set_values (mat A){
 					R = G*R;
 					
 				}
+			}
 			
-			//cout<<"iteracion: i-j "<< j <<"-" <<i<<endl;
+			cout<<"iteracion: i-j "<< j <<"-" <<i<<endl;
 		}
 	
 	
