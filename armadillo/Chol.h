@@ -7,6 +7,7 @@ using namespace std;
 	class Chol {
 	  public:
 		mat L, resultado;
+		double error;
 	  public:
 		void set_values (mat A);
 		mat get_L();

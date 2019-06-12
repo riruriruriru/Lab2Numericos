@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.mlab as mlab
+import scipy.io as sio
+
 
 def graph(x, y, labelx, labely, title):
     plt.title(title)
@@ -40,16 +42,23 @@ def graph2SinSeidel(x, labelx, labely, title):
 	return
 
 
-def graphError(iteraciones, errores, labelx, labely, title):
+def graphError(iteraciones, errores,matlabErrors, labelx, labely, title):
 	# Creates two subplots and unpacks the output array immediately
 	x = np.arange(int(iteraciones))
+	xx = np.arange(len(matlabErrors))
+	
 	f, (ax1, ax2) = plt.subplots(1, 2)
 	ax1.semilogy(x, errores)
+	ax1.semilogy(xx, matlabErrors)
 	plt.ylabel(labely)
 	plt.xlabel(labelx)
 	ax1.set_title(title)
+	ax1.legend(['Error Seidel Armadillo','Error Seidel Matlab'])
 	ax2.set_title("Iteraciones vs Error, sin ajuste logarítmico")
 	ax2.plot(x, errores)
+	ax2.plot(xx,matlabErrors)
+	ax2.legend(['Error Seidel Armadillo','Error Seidel Matlab'])
+
 	#plt.semilogy(x, errores)
 	#plt.ylabel(labely)
 	#plt.xlabel(labelx)
@@ -147,12 +156,41 @@ def graphSecSinSeidel(xSec, xNano,matlab, labelx, labely, title):
 	return
 
 
+errorLU289 = np.fromfile('LUError289.dat', dtype=float)
+errorLU1089 = np.fromfile('LUError1089.dat', dtype=float)
+errorLU4225 = np.fromfile('LUError4225.dat', dtype=float)
+
+errorCholesky289 = np.fromfile('CholError289.dat', dtype=float)
+errorCholesky1089 = np.fromfile('CholError1089.dat', dtype=float)
+errorCholesky4225 = np.fromfile('CholError4225.dat', dtype=float)
+
+errorQR289 = np.fromfile('QRError289.dat', dtype=float)
+errorQR1089 = np.fromfile('QRError1089.dat', dtype=float)
+errorQR4225 = np.fromfile('QRError4225.dat', dtype=float)
+
+errorGiv289 = np.fromfile('GivensError289.dat', dtype=float)
+errorGiv1089 = np.fromfile('GivensError1089.dat', dtype=float)
+errorGiv4225 = np.fromfile('GivensError4225.dat', dtype=float)
+
+errorSeidelMat289 = np.fromfile('eGS289.dat', dtype=float, sep = " ")
+errorSeidelMat1089 = np.fromfile('eGS1089.dat', dtype=float, sep = " ")
+errorSeidelMat4225 = np.fromfile('eGS4225.dat', dtype=float, sep = " ")
+
+
+print("####################")
 myarraySEC289 = np.fromfile('timeSegundos289.dat', dtype=float)
 myarrayNSEC289 = np.fromfile('timeNanoSegundos289.dat', dtype=float)
 myarraySEC1089 = np.fromfile('timeSegundos1089.dat', dtype=float)
 myarrayNSEC1089 = np.fromfile('timeNanoSegundos1089.dat', dtype=float)
 myarraySEC4225 = np.fromfile('timeSegundos4225.dat', dtype=float)
 myarrayNSEC4225 = np.fromfile('timeNanoSegundos4225.dat', dtype=float)
+
+print("Tiempo segundos 4225: ")
+print(myarraySEC4225)
+print("#########")
+print("Tiempo segundos 1089: ")
+print(myarraySEC1089)
+print("#########")
 
 solucionesSeidel289 = np.fromfile('Seidel289Soluciones.dat',dtype = float)
 solucionSeidel289 = np.fromfile('Seidel289Solucion.dat',dtype = float)
@@ -198,7 +236,7 @@ print(myarrayNSEC289)
 #graph([1,2,3,4,5],myarrayNSEC,"Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos, matriz 289x289")
 #graphNano(myarraySEC289, myarrayNSEC289, "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 289x289")
 graphSec(myarraySEC289,myarrayNSEC289, "Métodos","Tiempo [Sec]", "Métodos vs Tiempos[Sec], matriz 289x289")
-graphError(iteracionesSeidel289, erroresSeidel289, "Iteraciones", "Error", "Iteraciones vs Error matriz 289x289, ajuste logarítmico")
+graphError(iteracionesSeidel289, erroresSeidel289,errorSeidelMat289, "Iteraciones", "Error", "Iteraciones vs Error matriz 289x289, ajuste logarítmico")
 graphNanoSinSeidel(myarraySEC289[:5], myarrayNSEC289[:5],tiemposMatlab289SS, "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 289x289 (Sin Seidel)")
 graphSecSinSeidel(myarraySEC289[:5],myarrayNSEC289[:5],tiemposMatlab289SS, "Métodos","Tiempo [Segundos]", "Métodos vs Tiempos[Sec], matriz 289x289 (Sin Seidel)")
 print("nanosegundos")
@@ -208,15 +246,15 @@ print(myarraySEC289)
 
 
 #graphNano(myarraySEC1089, myarrayNSEC1089, "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 1089x1089")
-graphError(iteracionesSeidel1089, erroresSeidel1089, "Iteraciones", "Error", "Iteraciones vs Error, matrix 1089x1089, ajuste logarítmico")
+graphError(iteracionesSeidel1089, erroresSeidel1089,errorSeidelMat1089, "Iteraciones", "Error", "Iteraciones vs Error, matrix 1089x1089, ajuste logarítmico")
 graphNanoSinSeidel(myarraySEC1089[:5], myarrayNSEC1089[:5],tiemposMatlab1089SS, "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 1089x1089")
-graphSec(myarraySEC1089, myarrayNSEC1089, "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 1089x1089")
-graphSecSinSeidel(myarraySEC1089[:5], myarrayNSEC1089[:5],tiemposMatlab1089SS, "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 1089x1089")
+graphSec(myarraySEC1089, myarrayNSEC1089, "Métodos","Tiempo [Segundos]", "Métodos vs Tiempos[Sec], matriz 1089x1089")
+graphSecSinSeidel(myarraySEC1089[:5], myarrayNSEC1089[:5],tiemposMatlab1089SS, "Métodos","Tiempo [Segundos]", "Métodos vs Tiempos[Sec], matriz 1089x1089")
 
 
 #graphNano(myarraySEC4225, myarrayNSEC4225, "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 4225x4225")
-graphError(iteracionesSeidel4225, erroresSeidel4225, "Iteraciones", "Error", "Iteraciones vs Error, matriz 4225x4225, ajuste logarítmico")
+graphError(iteracionesSeidel4225, erroresSeidel4225,errorSeidelMat4225, "Iteraciones", "Error", "Iteraciones vs Error, matriz 4225x4225, ajuste logarítmico")
 graphNanoSinSeidel(myarraySEC4225[:5], myarrayNSEC4225[:5], tiemposMatlab4225SS,"Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 4225x4225")
-graphSec(myarraySEC4225, myarrayNSEC4225, "Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 4225x4225")
-graphSecSinSeidel(myarraySEC4225[:5], myarrayNSEC4225[:5], tiemposMatlab4225SS,"Métodos","Tiempo [Nanosegundos]", "Métodos vs Tiempos[nSec], matriz 4225x4225")
+graphSec(myarraySEC4225, myarrayNSEC4225, "Métodos","Tiempo [Segundos]", "Métodos vs Tiempos[Sec], matriz 4225x4225")
+graphSecSinSeidel(myarraySEC4225[:5], myarrayNSEC4225[:5], tiemposMatlab4225SS,"Métodos","Tiempo [Segundos]", "Métodos vs Tiempos[Sec], matriz 4225x4225")
 

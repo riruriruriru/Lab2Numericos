@@ -7,6 +7,7 @@ using namespace std;
 	class LU {
 	  public:
 		mat L, U,P, resultado;
+		double error;
 	  public:
 		void set_values (mat A);
 		mat get_L();

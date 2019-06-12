@@ -7,6 +7,7 @@ using namespace std;
 	class QR {
 	  public:
 		mat Q, R,resultado;
+		double error;
 	  public:
 		void set_values (mat A);
 		mat get_Q();

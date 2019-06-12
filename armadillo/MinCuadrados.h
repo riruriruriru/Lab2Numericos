@@ -8,6 +8,7 @@ using namespace std;
 	  public:
 		mat resultado;
 		mat A;
+		double error;
 	  public:
 		mat get_A();
 		mat get_Resultado();

@@ -7,6 +7,7 @@ using namespace std;
 	class Givens {
 	  public:
 		mat Q, R, A,resultado;
+		double error;
 	  public:
 		void set_values (mat A);
 		mat get_Q();

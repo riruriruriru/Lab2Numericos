@@ -149,19 +149,26 @@ void Givens::set_result(mat b){
 	//cout<<SolY;
 	//this->resultado = solve(this->U,SolY);
 	//this->resultado = invR*SolY;
+	int m = this->Q.n_rows;
 	this->resultado = inv(this->R)*this->Q.t()*b; //resultado givens italiano
+	this->error = norm(eye(m,m)-inv(inv(this->R)*this->Q.t())*inv(this->R)*this->Q.t()); //givens
 	//cout<<"resultado givens: \n";
 	//cout<<this->resultado;
 	}
 
 void Givens::save_res(int type){
+	mat aux = zeros(1,1);
+	aux(0,0) = this->error;
 	if(type == 289){
 		this->resultado.save("Givens289.dat", raw_binary);
+		aux.save("GivensError289.dat", raw_binary);
 		}
 	else if(type == 1089){
 		this->resultado.save("Givens1089.dat",raw_binary);
+		aux.save("GivensError1089.dat", raw_binary);
 		}
 	else if(type == 4225){
 		this->resultado.save("Givens4225.dat",raw_binary);
+		aux.save("GivensError4225.dat", raw_binary);
 		}
 	}

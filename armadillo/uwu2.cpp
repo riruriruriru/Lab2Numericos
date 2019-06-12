@@ -29,21 +29,6 @@ int main(int argc, const char **argv) {
 	obtainTime t;
 	Seidel sei;
 	MinCuadrados squared;
-	/*wchar_t *program = Py_DecodeLocale("graficar.py", NULL);
-    if (program == NULL) {
-        fprintf(stderr, "Fatal error: cannot decode argv[0]\n");
-        exit(1);
-    }
-    Py_SetProgramName(program);  
-    Py_Initialize();
-    PyRun_SimpleString("from time import time,ctime\n"
-                       "print('Today is', ctime(time()))\n");
-    if (Py_FinalizeEx() < 0) {
-        exit(120);
-    }
-    PyMem_RawFree(program);
-	*/
-//using the parameters from your code
 	Matrix m;
 	m.set_values();
 	//Matriz 289
@@ -86,38 +71,6 @@ int main(int argc, const char **argv) {
 	giv.save_res(289);
 	sei.save_res(289);
 	//Fin matriz 289
-	
-	cout<<"UWU"<<endl;
-	bool algo = approx_equal( lu.get_R(), cholesky.get_R(), "reldiff", 0.02 );
-	if(algo == true){
-		cout<< "resultados iguales uwu\n";
-		}
-	bool algo2 = approx_equal( lu.get_R(), qr.get_Resultado(), "reldiff", 0.02 );
-	if(algo2 == true){
-		cout<< "resultados iguales uwu LU y QR\n";
-		}
-	//cout<<"Resultado QR: \n";
-	//cout<<qr.get_Resultado();
-	bool algo3 = approx_equal( lu.get_R(), giv.get_Resultado(), "reldiff", 0.02 );
-	if(algo3 == true){
-		cout<< "resultados iguales uwu LU y GIV\n";
-		} 
-	bool algo4 = approx_equal( lu.get_R(), sei.get_Resultado(), "reldiff", 0.02 );
-	if(algo4 == true){
-		cout<< "resultados iguales uwu LU y SEI ultima iteracion\n";
-		} 
-	bool algo5 = approx_equal( sei.get_resMat().col(93), sei.get_Resultado(), "reldiff", 0.02 );
-	if(algo5 == true){
-		
-		cout<< "resultados sei arreglo [final] y SEI ultima iteracion\n";
-		//cout<<sei.get_resMat().col(93)<<endl;
-		}
-	bool algo6 = approx_equal( sei.get_resMat().col(93), squared.get_Resultado(), "reldiff", 0.02 );
-	if(algo6 == true){
-		
-		cout<< "resultados sei arreglo [final] y LS\n";
-		//cout<<sei.get_resMat().col(93)<<endl;
-		}
 	
 	
 	//Inicio matriz 1089
@@ -195,7 +148,7 @@ int main(int argc, const char **argv) {
 	t.set_total_timeLS();
 	squared.save_res(4225);
 	t.save_times(4225);
-	lu.save_res(289);
+	lu.save_res(4225);
 	cholesky.save_res(4225);
 	qr.save_res(4225);
 	giv.save_res(4225);
