@@ -140,6 +140,7 @@ def graphSecSinSeidel(xSec, xNano,matlab, labelx, labely, title):
 	for i in xSec:
 		x[cont] = i + xNano2[cont]*10**(-9)
 		cont = cont +1
+	print("Grafico segundos sin seidel: ")
 	print("Segundos armadillo: ")
 	print(x)
 	print("Segundos matlab: ")

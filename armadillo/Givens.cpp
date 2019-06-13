@@ -11,7 +11,8 @@ void Givens::set_values (mat A){
 	//mat G;
 	double raiz, s, c;
 	double xi, xj;
-	int i, j, k;
+	int i=0;
+	int j, k;
     int m = A.n_rows;
     int n = A.n_cols;
     R = A;
@@ -57,7 +58,7 @@ void Givens::set_values (mat A){
 		*/
 	//Givens nuevo
 	for(j=0;j<n;j++){
-		for(i=j+1;i<m;i++){
+		//for(i=j+1;i<m;i++){ //DESCOMENTAR DESPUES
 				if (R(i,j)!=0){
 					xi = R(i,j);
 					xj = R(i,j);
@@ -66,7 +67,7 @@ void Givens::set_values (mat A){
 					Q = Q*G.t();
 					R = G*R;
 					
-				}
+				//} //DESCOMENTAR DESPUES
 			}
 			
 			cout<<"iteracion: i-j "<< j <<"-" <<i<<endl;

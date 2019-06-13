@@ -114,7 +114,7 @@ int main(int argc, const char **argv) {
 	sei.save_res(1089);
 	//Fin matriz 1089
 	//Inicio matriz 4225
-	
+	t.init_time_Givens(); //BORRAR DESPUES
 	t.init_time_LU();
 	lu.set_values(m.get_value("A4225"));
 	lu.set_result(m.get_value("b4225"));
@@ -130,11 +130,11 @@ int main(int argc, const char **argv) {
 	qr.set_result(m.get_value("b4225"));
 	t.end_time_QR();
 	t.set_total_timeQR();
-	t.init_time_Givens();
+	//t.init_time_Givens(); //DESCOMENTAR DESPUES
 	giv.set_values(m.get_value("A4225"));
 	giv.set_result(m.get_value("b4225"));
-	t.end_time_Givens();
-	t.set_total_timeGivens();
+	//t.end_time_Givens(); //DESCOMENTAR DESPUES
+	//t.set_total_timeGivens(); //DESCOMENTAR DESPUES
 	cout<<"termino givens"<<endl;
 	t.init_time_Seidel();
 	sei.set_result(m.get_value("A4225"), m.get_value("b4225"), pow(10,-18));
@@ -146,6 +146,8 @@ int main(int argc, const char **argv) {
 	squared.set_result(m.get_value("b4225"));
 	t.end_time_LS();
 	t.set_total_timeLS();
+	t.end_time_Givens();//BORRAR DESPUES
+	t.set_total_timeGivens(); //BORRAR DESPUES
 	squared.save_res(4225);
 	t.save_times(4225);
 	lu.save_res(4225);
