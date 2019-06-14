@@ -31,21 +31,11 @@ void Seidel::set_result(mat A, mat b, double tol){
     mat ee;
     ee = zeros(1,1);
     double e;
-    for(i = 0;i<1000;i++){ //CAMBIAR A 1000 ITERACIONES
-		//cout<<"Iteracion: "<<i<<endl;
+    for(i = 0;i<1000;i++){ 
        jj = inv(D+E) * -F;
        c = inv(D+E) * b;
        x1 = jj*x0 + c;//se calcula la aproximacion de la iteracion actual
-       //cout<<"X1:" <<endl;
-       //cout<<x1<<endl;
-       //cout<<"X0:" <<endl;
-       //cout<<x0<<endl;
-       //cout<<"X1-X0:" <<endl;
-       //cout<<x1-x0<<endl;
-       //cout<<"INF"<<endl;
-       //cout<<datum::inf<<endl;
        e = norm(x1 - x0, "inf")/norm(x1, "inf");//se calcula el error de la iteracion actual
-       
        ee(0,0) = e;
        soluciones = join_horiz(soluciones, x1); //JOIN //senorm guarda la aproximacion de la iteracion actual
        errores = join_horiz(errores, ee); //Se actualiza el error segun la iteracion actual
@@ -84,24 +74,24 @@ mat Seidel::get_resMat(){
 	
 void Seidel::save_res(int type){
 	if(type == 289){
-		this->resultado.save("Seidel289Solucion.dat",raw_binary);
-		this->iteraciones.save("Seidel289Iteraciones.dat",raw_binary);
-		this->error.save("Seidel289error.dat",raw_binary);
-		this->err.save("Seidel289Errores.dat",raw_binary);
-		this->resMat.save("Seidel289Soluciones.dat",raw_binary);
+		this->resultado.save("Archivos/Seidel289Solucion.dat",raw_binary);
+		this->iteraciones.save("Archivos/Seidel289Iteraciones.dat",raw_binary);
+		this->error.save("Archivos/Seidel289error.dat",raw_binary);
+		this->err.save("Archivos/Seidel289Errores.dat",raw_binary);
+		this->resMat.save("Archivos/Seidel289Soluciones.dat",raw_binary);
 		}
 	else if(type == 1089){
-		this->resultado.save("Seidel1089Solucion.dat",raw_binary);
-		this->iteraciones.save("Seidel1089Iteraciones.dat",raw_binary);
-		this->error.save("Seidel1089error.dat",raw_binary);
-		this->err.save("Seidel1089Errores.dat",raw_binary);
-		this->resMat.save("Seidel1089Soluciones.dat",raw_binary);
+		this->resultado.save("Archivos/Seidel1089Solucion.dat",raw_binary);
+		this->iteraciones.save("Archivos/Seidel1089Iteraciones.dat",raw_binary);
+		this->error.save("Archivos/Seidel1089error.dat",raw_binary);
+		this->err.save("Archivos/Seidel1089Errores.dat",raw_binary);
+		this->resMat.save("Archivos/Seidel1089Soluciones.dat",raw_binary);
 		}
 	else if(type == 4225){
-		this->resultado.save("Seidel4225Solucion.dat",raw_binary);
-		this->iteraciones.save("Seidel4225Iteraciones.dat",raw_binary);
-		this->error.save("Seidel4225error.dat",raw_binary);
-		this->err.save("Seidel4225Errores.dat",raw_binary);
-		this->resMat.save("Seidel4225Soluciones.dat",raw_binary);
+		this->resultado.save("Archivos/Seidel4225Solucion.dat",raw_binary);
+		this->iteraciones.save("Archivos/Seidel4225Iteraciones.dat",raw_binary);
+		this->error.save("Archivos/Seidel4225error.dat",raw_binary);
+		this->err.save("Archivos/Seidel4225Errores.dat",raw_binary);
+		this->resMat.save("Archivos/Seidel4225Soluciones.dat",raw_binary);
 		}
 	}

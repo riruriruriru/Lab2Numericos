@@ -33,13 +33,19 @@ void MinCuadrados::set_result(mat b){
 	}
 
 void MinCuadrados::save_res(int type){
+	mat aux = zeros(1,1);
+	aux(0,0) = this->error;
+	
 	if(type == 289){
-		this->resultado.save("Min289.dat",raw_binary);
+		this->resultado.save("Archivos/Min289.dat",raw_binary);
+		aux.save("Archivos/MinError289.dat",raw_binary);
 		}
 	else if(type == 1089){
-		this->resultado.save("Min1089.dat",raw_binary);
+		this->resultado.save("Archivos/Min1089.dat",raw_binary);
+		aux.save("Archivos/MinError1089.dat",raw_binary);
 		}
 	else if(type == 4225){
-		this->resultado.save("Min4225.dat",raw_binary);
+		this->resultado.save("Archivos/Min4225.dat",raw_binary);
+		aux.save("Archivos/MinError4225.dat",raw_binary);
 		}
 	}

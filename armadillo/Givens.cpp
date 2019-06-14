@@ -8,7 +8,7 @@ using namespace std;
 
 void Givens::set_values (mat A){
 	sp_mat Q, R;
-	//mat G;
+	;
 	double raiz, s, c;
 	double xi, xj;
 	int i=0;
@@ -17,48 +17,9 @@ void Givens::set_values (mat A){
     int n = A.n_cols;
     R = A;
     Q=Q.eye(m,n);
-    //this->A = A;
-    //Q = eye<mat>(m,m);;
-    /*for(i=0;i<n;i++){
-        for(k=i+1;k<m;k++){
-            if (R(k,i) != 0){
-                raiz = sqrt(pow(R(k,i),2) + pow(R(i,i),2));
-                s = -R(k,i)/raiz;
-                c = R(i,i)/raiz;
-                G = eye<mat>(m,m);
-                G(i,i) = c;
-                G(k,k) = c;
-                G(k,i) = -s;
-                G(i,k) = s;
-                Q = Q*G; // Matriz ortogonal
-                R = G.t()*R; // Matriz triangular inferior
-			}
-		}
-		cout<<"iteracion: i-j "<< i <<"-" <<k<<endl;
-		
-	}
-	*/
-	//[m, n] = size(A);
 	
-	//GIVENS ITALIANO
-		/*for(j=0;j<n;j++){
-			for(i=j+1;i<m;i++){
-				if (R(i,j)!=0){
-					xi = R(i,j);
-					xj = R(i,j);
-					sp_mat G = makeGivens(m,i,j,xi,xj);
-					
-					Q = Q*G.t();
-					R = G*R;
-					
-				}
-			}
-			cout<<"iteracion: i-j "<< j <<"-" <<i<<endl;
-		}
-		*/
-	//Givens nuevo
 	for(j=0;j<n;j++){
-		//for(i=j+1;i<m;i++){ //DESCOMENTAR DESPUES
+		for(i=j+1;i<m;i++){ 
 				if (R(i,j)!=0){
 					xi = R(i,j);
 					xj = R(i,j);
@@ -67,37 +28,12 @@ void Givens::set_values (mat A){
 					Q = Q*G.t();
 					R = G*R;
 					
-				//} //DESCOMENTAR DESPUES
+				} 
 			}
 			
-			cout<<"iteracion: i-j "<< j <<"-" <<i<<endl;
+			//cout<<"iteracion: i-j "<< j <<"-" <<i<<endl;
 		}
-	
-	
-	
-/*[m, n] = size(A);
-Q=eye(m);
-contGivens = 0;
-contAux = 0;
-for j=1:n
-    for i=1(j+1):m;
-        if A(i,j)~=0
-            xi = A(i,j);
-            xj = A(i,j);
-            [G,contAux] = makeGivens(m,i,j,xi,xj);
-            Q = Q*G';
-            A = G*A;
-            [n1,m1] = size(A);
-            [n2,m2] = size(Q);
-            [n3,m3] = size(G);
-            contGivens = contGivens+2 + contAux + (n1*m1)+(n2*m2)+(n3*m3);
-        end
-    end
-end
-%r = triu(A);
-
-X=inv(A) * Q' * b;
-*/	
+		
 	cout<<"Terminando givens..."<<endl;
 	this->Q = Q;
 	this->R = R;
@@ -107,9 +43,6 @@ sp_mat Givens::makeGivens(int m,int i,int j,double xi,double xj){
     sp_mat G;
     G = G.eye(m,m);
     double t, z, c, s;
-    //raiz = sqrt(pow(R(k,i),2) + pow(R(i,i),2));
-    //s = -R(k,i)/raiz;
-    //c = R(i,i)/raiz;
     if(abs(xj)>abs(xi)){
         t = xi/xj;
         z = sqrt(1+pow(t,2));
@@ -141,35 +74,24 @@ mat Givens::get_Resultado(){
 	}
 
 void Givens::set_result(mat b){
-	//mat SolY, solXUWU,invQ, invR;
-	//SolY = solve(this->P.t()*this->L,b);
-	//invQ = inv(this->Q);
-	//invR = inv(this->R);
-	//SolY = invQ*b;
-	//cout<<"Solucion Y con LU: \n";
-	//cout<<SolY;
-	//this->resultado = solve(this->U,SolY);
-	//this->resultado = invR*SolY;
 	int m = this->Q.n_rows;
-	this->resultado = inv(this->R)*this->Q.t()*b; //resultado givens italiano
-	this->error = norm(eye(m,m)-inv(inv(this->R)*this->Q.t())*inv(this->R)*this->Q.t()); //givens
-	//cout<<"resultado givens: \n";
-	//cout<<this->resultado;
+	this->resultado = inv(this->R)*this->Q.t()*b; //resultado 
+	this->error = norm(eye(m,m)-inv(inv(this->R)*this->Q.t())*inv(this->R)*this->Q.t()); //givens error
 	}
 
 void Givens::save_res(int type){
 	mat aux = zeros(1,1);
 	aux(0,0) = this->error;
 	if(type == 289){
-		this->resultado.save("Givens289.dat", raw_binary);
-		aux.save("GivensError289.dat", raw_binary);
+		this->resultado.save("Archivos/Givens289.dat", raw_binary);
+		aux.save("Archivos/GivensError289.dat", raw_binary);
 		}
 	else if(type == 1089){
-		this->resultado.save("Givens1089.dat",raw_binary);
-		aux.save("GivensError1089.dat", raw_binary);
+		this->resultado.save("Archivos/Givens1089.dat",raw_binary);
+		aux.save("Archivos/GivensError1089.dat", raw_binary);
 		}
 	else if(type == 4225){
-		this->resultado.save("Givens4225.dat",raw_binary);
-		aux.save("GivensError4225.dat", raw_binary);
+		this->resultado.save("Archivos/Givens4225.dat",raw_binary);
+		aux.save("Archivos/GivensError4225.dat", raw_binary);
 		}
 	}

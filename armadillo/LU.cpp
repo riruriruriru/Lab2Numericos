@@ -29,14 +29,10 @@ mat LU::get_R(){
 void LU::set_result(mat b){
 	mat SolY, solXUWU, invL, invU, invP;
 	int m = this->L.n_rows;
-	//SolY = solve(this->P.t()*this->L,b);
 	invL = inv(L);
 	invU = inv(U);
 	invP = inv(P.t());
 	SolY = invL*invP*b;
-	//cout<<"Solucion Y con LU: \n";
-	//cout<<SolY;
-	//this->resultado = solve(this->U,SolY);
 	this->resultado = invU*SolY;
 	this->error = norm(eye(m,m)-inv(this->L*this->U*this->P)*this->L*this->U*this->P);
 	
@@ -45,15 +41,15 @@ void LU::save_res(int type){
 	mat aux = zeros(1,1);
 	aux(0,0) = this->error;
 	if(type == 289){
-		this->resultado.save("LU289.dat",raw_binary);
-		aux.save("LUError289.dat", raw_binary);
+		this->resultado.save("Archivos/LU289.dat",raw_binary);
+		aux.save("Archivos/LUError289.dat", raw_binary);
 		}
 	else if(type == 1089){
-		this->resultado.save("LU1089.dat",raw_binary);
-		aux.save("LUError1089.dat", raw_binary);
+		this->resultado.save("Archivos/LU1089.dat",raw_binary);
+		aux.save("Archivos/LUError1089.dat", raw_binary);
 		}
 	else if(type == 4225){
-		this->resultado.save("LU4225.dat",raw_binary);
-		aux.save("LUError4225.dat", raw_binary);
+		this->resultado.save("Archivos/LU4225.dat",raw_binary);
+		aux.save("Archivos/LUError4225.dat", raw_binary);
 		}
 	}

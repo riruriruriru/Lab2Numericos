@@ -174,16 +174,16 @@ void obtainTime::save_times(int type){
 	cout<< "Arreglo nano segundos: LU-CHO-QR-LS-GIV-SEI"<<endl;
 	cout<< tNSec<<endl;
 	if(type == 289){
-		tSec.save("timeSegundos289.dat", raw_binary);
-		tNSec.save("timeNanoSegundos289.dat", raw_binary);
+		tSec.save("Archivos/timeSegundos289.dat", raw_binary);
+		tNSec.save("Archivos/timeNanoSegundos289.dat", raw_binary);
 		}
 	else if(type == 1089){
-		tSec.save("timeSegundos1089.dat", raw_binary);
-		tNSec.save("timeNanoSegundos1089.dat", raw_binary);
+		tSec.save("Archivos/timeSegundos1089.dat", raw_binary);
+		tNSec.save("Archivos/timeNanoSegundos1089.dat", raw_binary);
 		}
 	else if(type == 4225){
-		tSec.save("timeSegundos4225.dat", raw_binary);
-		tNSec.save("timeNanoSegundos4225.dat", raw_binary);
+		tSec.save("Archivos/timeSegundos4225.dat", raw_binary);
+		tNSec.save("Archivos/timeNanoSegundos4225.dat", raw_binary);
 		}
 	}
 
