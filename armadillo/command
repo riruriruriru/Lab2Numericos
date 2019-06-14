@@ -1,2 +1,2 @@
-clear
+g++ main.cpp matrix.cpp LU.cpp obtainTime.cpp Chol.cpp QR.cpp Givens.cpp Seidel.cpp MinCuadrados.cpp -o main -larmadillo -O2 $(python3.6-config --ldflags) -DNDEBUG
 ./main
