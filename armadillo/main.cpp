@@ -152,10 +152,12 @@ int main(int argc, const char **argv) {
 	qr.save_res(4225);
 	giv.save_res(4225); 
 	sei.save_res(4225);
+	
 	//Fin matriz 4225
 	
 	//cout<<"Resultado seidel: \n";
 	//cout<<sei.get_Resultado()<<endl;
+	
 	
 	cout<<"inicializando python..."<<endl;
 	FILE* cp = fopen("graficar.py", "r");
@@ -170,16 +172,3 @@ int main(int argc, const char **argv) {
 	
  }
 
-
-timespec diff(timespec start, timespec end)
-{
-	timespec temp;
-	if ((end.tv_nsec-start.tv_nsec)<0) {
-		temp.tv_sec = end.tv_sec-start.tv_sec-1;
-		temp.tv_nsec = 1000000000+end.tv_nsec-start.tv_nsec;
-	} else {
-		temp.tv_sec = end.tv_sec-start.tv_sec;
-		temp.tv_nsec = end.tv_nsec-start.tv_nsec;
-	}
-	return temp;
-}

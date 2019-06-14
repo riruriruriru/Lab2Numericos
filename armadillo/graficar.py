@@ -21,14 +21,32 @@ def graphError(iteraciones, errores,matlabErrors, labelx, labely, title):
 	ax2.plot(x, errores)
 	ax2.plot(xx,matlabErrors)
 	ax2.legend(['Error Seidel Armadillo','Error Seidel Matlab'])
-
-	#plt.semilogy(x, errores)
-	#plt.ylabel(labely)
-	#plt.xlabel(labelx)
-	#plt.title(title)
 	plt.show()
 	return
 
+def graphResultados(LU, Chol,QR,LS,Giv,Sei,xlabel,ylabel,title):
+	x = np.arange(len(LU))
+	y = [LU,Chol,QR,LS,Giv,Sei]
+	names = ["LU","Cholesky","QR","LS","Giv","Sei"]
+	cont = 0
+	#p1 = plt.scatter(x,LU, marker = "*",color="blue")
+	#p2 = plt.scatter(x,Chol, marker = ".",color = "red")
+	#p3 = plt.scatter(x,QR,marker = "+", color="black")
+	#p4 = plt.scatter(x,LS,marker = "s", color="yellow")
+	#p5 = plt.scatter(x,Giv,marker = ",", color="green")
+	#p6 = plt.scatter(x,Sei,marker = ">", color= "purple")
+	for marker in ['o', '.', 'd', 'x', '+', 'v']:
+		plt.plot(x, y[cont], marker, label=names[cont]+"='{0}'".format(marker))
+		cont = cont +1
+	plt.legend(numpoints=1)
+	
+	print(LU)
+	print(Sei)
+	#plt.legend((p1[0],p2[0],p3[0],p4[0],p5[0],p6[0]),("LU","Cholesky","QR","LS","Givens","Seidel"))
+	plt.ylabel(ylabel)
+	plt.xlabel(xlabel)
+	plt.title(title)
+	plt.show()
 
 def graphSecSeidelGiv(GivSec, GivNano,SeiSec,SeiNano,matlabGiv,matlabSei, labelx, labely, title):
 	objects = ('Givens', 'Seidel')
@@ -62,6 +80,10 @@ def graphSecSinSeidel(xSec, xNano,matlab, labelx, labely, title):
 	for i in xSec:
 		x[cont] = i + xNano2[cont]*10**(-9)
 		cont = cont +1
+	print("Segundos matlab: ")
+	print(matlab)
+	print("Segundos armadillo: ")
+	print(x)
 	p1 = plt.bar(y, x, align='center', alpha=0.5)
 	p2 = plt.bar(y, matlab, align='center', alpha=0.5, bottom = x)
 	plt.legend((p1[0], p2[0]), ('Armadillo', 'Matlab'))
@@ -94,6 +116,10 @@ errorSeidelMat289 = np.fromfile('Archivos/eGS289.dat', dtype=float, sep = " ")
 errorSeidelMat1089 = np.fromfile('Archivos/eGS1089.dat', dtype=float, sep = " ")
 errorSeidelMat4225 = np.fromfile('Archivos/eGS4225.dat', dtype=float, sep = " ")
 
+errorLS289 = np.fromfile('Archivos/MinError289.dat', dtype=float)
+errorLS1089 = np.fromfile('Archivos/MinError1089.dat', dtype=float)
+errorLS4225 = np.fromfile('Archivos/MinError4225.dat', dtype=float)
+
 
 print("####################")
 myarraySEC289 = np.fromfile('Archivos/timeSegundos289.dat', dtype=float)
@@ -125,11 +151,31 @@ solucionesSeidel4225 = np.fromfile('Archivos/Seidel4225Soluciones.dat',dtype = f
 solucionSeidel4225 = np.fromfile('Archivos/Seidel4225Solucion.dat',dtype = float)
 erroresSeidel4225 = np.fromfile('Archivos/Seidel4225Errores.dat',dtype = float)
 iteracionesSeidel4225 = np.fromfile('Archivos/Seidel4225Iteraciones.dat',dtype = float)
+
+lu289 = np.fromfile('Archivos/LU289.dat',dtype = float)
+chol289 = np.fromfile('Archivos/Chol289.dat',dtype = float)
+qr289 = np.fromfile('Archivos/QR289.dat',dtype = float)
+ls289 = np.fromfile('Archivos/Min289.dat',dtype = float)
+giv289 = np.fromfile('Archivos/Givens289.dat',dtype = float)
+
+lu1089 = np.fromfile('Archivos/LU1089.dat',dtype = float)
+chol1089 = np.fromfile('Archivos/Chol1089.dat',dtype = float)
+qr1089 = np.fromfile('Archivos/QR1089.dat',dtype = float)
+ls1089 = np.fromfile('Archivos/Min1089.dat',dtype = float)
+giv1089 = np.fromfile('Archivos/Givens1089.dat',dtype = float)
+
+lu4225 = np.fromfile('Archivos/LU4225.dat',dtype = float)
+chol4225 = np.fromfile('Archivos/Chol4225.dat',dtype = float)
+qr4225 = np.fromfile('Archivos/QR4225.dat',dtype = float)
+ls4225 = np.fromfile('Archivos/Min4225.dat',dtype = float)
+giv4225 = np.fromfile('Archivos/Givens4225.dat',dtype = float)
+
+
 #LU CHOLESKY QR LS GIVENS SEIDEL
 
-#tiemposMatlab289SS = [0.145, 0.467, 0.268, 0.314,50.535]
-#tiemposMatlab1089SS = [3.562, 6.894, 5.893, 0.153,13030.340]
-#tiemposMatlab4225SS = [325.422, 314.324, 502.967, 60.026, 70563.464]
+#tiemposMatlab289SS = [0.145, 0.467, 0.268, 0.0223,50.535]
+#tiemposMatlab1089SS = [3.562, 6.894, 5.893, 0.7304,15030.340]
+#tiemposMatlab4225SS = [325.422, 314.324, 502.967, 60.3328, 70563.464]
 #seidelMatlab289 = [0.624]
 #seidelMatlab1089 = [68.654]
 #seidelMatlab4225 = [8656.435]
@@ -151,14 +197,17 @@ seidelMatlab4225 = np.load("Archivos/seidelMatlab4225.npy")
 graphError(iteracionesSeidel289, erroresSeidel289,errorSeidelMat289, "Iteraciones", "Error", "Iteraciones vs Error matriz 289x289, ajuste logarítmico")
 graphSecSinSeidel(myarraySEC289[:4],myarrayNSEC289[:4],tiemposMatlab289SS[:4], "Métodos","Tiempo [Segundos]", "Métodos vs Tiempos[Sec], matriz 289x289 (Sin Seidel)")
 graphSecSeidelGiv(myarraySEC289[4], myarrayNSEC289[4],myarraySEC289[5],myarrayNSEC289[5],tiemposMatlab289SS[4],seidelMatlab289[0], "Métodos", "Tiempo [Segundos]", "Métodos vs Tiempo, matriz 289x289")
+graphResultados(lu289, chol289,qr289,ls289,giv289,solucionSeidel289,"x","y","Resultados Métodos Armadillo")
 
 graphError(iteracionesSeidel1089, erroresSeidel1089,errorSeidelMat1089, "Iteraciones", "Error", "Iteraciones vs Error, matrix 1089x1089, ajuste logarítmico")
 graphSecSinSeidel(myarraySEC1089[:4], myarrayNSEC1089[:4],tiemposMatlab1089SS[:4], "Métodos","Tiempo [Segundos]", "Métodos vs Tiempos[Sec], matriz 1089x1089")
 graphSecSeidelGiv(myarraySEC1089[4], myarrayNSEC1089[4],myarraySEC1089[5],myarrayNSEC1089[5],tiemposMatlab1089SS[4],seidelMatlab1089[0], "Métodos", "Tiempo [Segundos]", "Métodos vs Tiempo, matriz 1089x1089")
+graphResultados(lu1089, chol1089,qr1089,ls1089,giv1089,solucionSeidel1089,"x","y","Resultados Métodos Armadillo")
 
 graphError(iteracionesSeidel4225, erroresSeidel4225,errorSeidelMat4225[:1000], "Iteraciones", "Error", "Iteraciones vs Error, matriz 4225x4225, ajuste logarítmico")
 graphSecSinSeidel(myarraySEC4225[:4], myarrayNSEC4225[:4], tiemposMatlab4225SS[:4],"Métodos","Tiempo [Segundos]", "Métodos vs Tiempos[Sec], matriz 4225x4225")
-graphSecSeidelGiv(myarraySEC4225[4]/10, myarrayNSEC4225[4],myarraySEC4225[5]/10,myarrayNSEC4225[5],tiemposMatlab4225SS[4],seidelMatlab4225[0], "Métodos", "Tiempo [Segundos]", "Métodos vs Tiempo, matriz 4225x4225")
+graphSecSeidelGiv(myarraySEC4225[4], myarrayNSEC4225[4],myarraySEC4225[5],myarrayNSEC4225[5],tiemposMatlab4225SS[4],seidelMatlab4225[0], "Métodos", "Tiempo [Segundos]", "Métodos vs Tiempo, matriz 4225x4225")
+graphResultados(lu4225, chol4225,qr4225,ls4225,giv4225,solucionSeidel4225,"x","y","Resultados Métodos Armadillo")
 
 print("##########################")
 print("ERRORES ARMADILLO")
@@ -187,3 +236,7 @@ print("ERRORES SEIDEL MATLAB")
 print(errorSeidelMat289[len(errorSeidelMat289)-1])
 print(errorSeidelMat1089[len(errorSeidelMat1089)-1])
 print(errorSeidelMat4225[999])
+print("ERRORES MINIMOS CUADRADOS: \n##################")
+print(errorLS289)
+print(errorLS1089)
+print(errorLS4225)

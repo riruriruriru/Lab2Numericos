@@ -26,7 +26,7 @@ void MinCuadrados::set_result(mat b){
 	//cout<<x<<endl;
 	cout<<"###################"<<endl;
 	this->resultado = x;
-	this->error = norm(eye(m,m)-inv(inv(AA.t()*AA))*AA.t());
+	this->error = norm(eye(m,m)-inv(AA.t()*AA)*AA.t()*this->A);
 	
 	
 	//cout<< this->resultado;
@@ -35,7 +35,8 @@ void MinCuadrados::set_result(mat b){
 void MinCuadrados::save_res(int type){
 	mat aux = zeros(1,1);
 	aux(0,0) = this->error;
-	
+	cout<<"Errores min squared: "<<endl;
+	cout<<aux<<endl;
 	if(type == 289){
 		this->resultado.save("Archivos/Min289.dat",raw_binary);
 		aux.save("Archivos/MinError289.dat",raw_binary);
