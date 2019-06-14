@@ -19,9 +19,6 @@ timespec diff(timespec start, timespec end);
  
 
 int main(int argc, const char **argv) {	
-	//for (int i = 0; i< 242000000; i++)
-	//	temp+=temp;
-	//clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time2);
 	LU lu;
 	Chol cholesky;
 	QR qr;
@@ -134,10 +131,8 @@ int main(int argc, const char **argv) {
 	giv.set_result(m.get_value("b4225"));
 	t.end_time_Givens(); 
 	t.set_total_timeGivens(); 
-	cout<<"termino givens"<<endl;
 	t.init_time_Seidel();
 	sei.set_result(m.get_value("A4225"), m.get_value("b4225"), pow(10,-18));
-	cout<<"termino seidel"<<endl;
 	t.end_time_Seidel();
 	t.set_total_timeSeidel();
 	t.init_time_LS();
@@ -155,10 +150,7 @@ int main(int argc, const char **argv) {
 	
 	//Fin matriz 4225
 	
-	//cout<<"Resultado seidel: \n";
-	//cout<<sei.get_Resultado()<<endl;
-	
-	
+
 	cout<<"inicializando python..."<<endl;
 	FILE* cp = fopen("graficar.py", "r");
 	Py_Initialize();

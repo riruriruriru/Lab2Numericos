@@ -6,7 +6,6 @@ import scipy.io as sio
 
 
 def graphError(iteraciones, errores,matlabErrors, labelx, labely, title):
-	# Creates two subplots and unpacks the output array immediately
 	x = np.arange(int(iteraciones))
 	xx = np.arange(len(matlabErrors))
 	
@@ -29,20 +28,11 @@ def graphResultados(LU, Chol,QR,LS,Giv,Sei,xlabel,ylabel,title):
 	y = [LU,Chol,QR,LS,Giv,Sei]
 	names = ["LU","Cholesky","QR","LS","Giv","Sei"]
 	cont = 0
-	#p1 = plt.scatter(x,LU, marker = "*",color="blue")
-	#p2 = plt.scatter(x,Chol, marker = ".",color = "red")
-	#p3 = plt.scatter(x,QR,marker = "+", color="black")
-	#p4 = plt.scatter(x,LS,marker = "s", color="yellow")
-	#p5 = plt.scatter(x,Giv,marker = ",", color="green")
-	#p6 = plt.scatter(x,Sei,marker = ">", color= "purple")
+	
 	for marker in ['o', '.', 'd', 'x', '+', 'v']:
 		plt.plot(x, y[cont], marker, label=names[cont]+"='{0}'".format(marker))
 		cont = cont +1
 	plt.legend(numpoints=1)
-	
-	print(LU)
-	print(Sei)
-	#plt.legend((p1[0],p2[0],p3[0],p4[0],p5[0],p6[0]),("LU","Cholesky","QR","LS","Givens","Seidel"))
 	plt.ylabel(ylabel)
 	plt.xlabel(xlabel)
 	plt.title(title)
@@ -129,10 +119,8 @@ myarrayNSEC1089 = np.fromfile('Archivos/timeNanoSegundos1089.dat', dtype=float)
 myarraySEC4225 = np.fromfile('Archivos/timeSegundos4225.dat', dtype=float)
 myarrayNSEC4225 = np.fromfile('Archivos/timeNanoSegundos4225.dat', dtype=float)
 
-print("Tiempo segundos 4225: ")
 myarraySEC4225[5] = myarraySEC4225[5]/10
 myarraySEC4225[4] = myarraySEC4225[4]/10
-#np.save("2timeSegundos4225.dat", myarraySEC4225)
 myarray2SEC4225 = np.fromfile('Archivos/2timeSegundos4225.dat', dtype=float, sep = " ")
 
 
@@ -171,21 +159,6 @@ ls4225 = np.fromfile('Archivos/Min4225.dat',dtype = float)
 giv4225 = np.fromfile('Archivos/Givens4225.dat',dtype = float)
 
 
-#LU CHOLESKY QR LS GIVENS SEIDEL
-
-#tiemposMatlab289SS = [0.145, 0.467, 0.268, 0.0223,50.535]
-#tiemposMatlab1089SS = [3.562, 6.894, 5.893, 0.7304,15030.340]
-#tiemposMatlab4225SS = [325.422, 314.324, 502.967, 60.3328, 70563.464]
-#seidelMatlab289 = [0.624]
-#seidelMatlab1089 = [68.654]
-#seidelMatlab4225 = [8656.435]
-#np.save("Archivos/tiemposMatlab289.npy", tiemposMatlab289SS)
-#np.save("Archivos/tiemposMatlab1089.npy", tiemposMatlab1089SS)
-#np.save("Archivos/tiemposMatlab4225.npy", tiemposMatlab4225SS)
-#
-#np.save("seidelMatlab289.npy", seidelMatlab289)
-#np.save("seidelMatlab1089.npy", seidelMatlab1089)
-#np.save("seidelMatlab4225.npy", seidelMatlab4225)
 
 tiemposMatlab289SS = np.load("Archivos/tiemposMatlab289.npy")
 tiemposMatlab1089SS = np.load("Archivos/tiemposMatlab1089.npy")
@@ -240,3 +213,7 @@ print("ERRORES MINIMOS CUADRADOS: \n##################")
 print(errorLS289)
 print(errorLS1089)
 print(errorLS4225)
+print("Iteraciones Gauss Seidel Armadillo:")
+print(iteracionesSeidel289)
+print(iteracionesSeidel1089)
+print(iteracionesSeidel4225)

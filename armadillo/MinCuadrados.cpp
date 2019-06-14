@@ -23,13 +23,8 @@ void MinCuadrados::set_result(mat b){
 	mat x;
 	int m = this->A.n_rows;
 	x = inv(AA.t()*AA)*AA.t()*b;
-	//cout<<x<<endl;
-	cout<<"###################"<<endl;
 	this->resultado = x;
 	this->error = norm(eye(m,m)-inv(AA.t()*AA)*AA.t()*this->A);
-	
-	
-	//cout<< this->resultado;
 	}
 
 void MinCuadrados::save_res(int type){

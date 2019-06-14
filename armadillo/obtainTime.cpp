@@ -46,7 +46,7 @@ void obtainTime::set_total_timeLS(){
 	time2 = this->timeLS[1];
 	this->timeLSSec = this->diff(time1,time2,1);//SEGUNDOS
 	this->timeLSNSec = this->diff(time1,time2,2);//NANOSEGUNDOS
-	cout<<this->timeLSSec<<":"<<this->timeLSNSec<<endl;
+	cout<<"Tiempo Minimos Cuadrados segundos-nanosegundos: "<<this->timeLSSec<<":"<<this->timeLSNSec<<endl;
 	}
 
 void obtainTime::init_time_LU(){
@@ -86,7 +86,7 @@ void obtainTime::set_total_timeLU(){
 	time2 = this->timeLU[1];
 	this->timeLUSec = this->diff(time1,time2,1);//SEGUNDOS
 	this->timeLUNSec = this->diff(time1,time2,2);//NANOSEGUNDOS
-	cout<<this->timeLUSec<<":"<<this->timeLUNSec<<endl;
+	cout<<"Tiempo LU segundos-nanosegundos: "<<this->timeLUSec<<":"<<this->timeLUNSec<<endl;
 	}
 void obtainTime::set_total_timeCholesky(){
 	timespec time1, time2;
@@ -94,7 +94,7 @@ void obtainTime::set_total_timeCholesky(){
 	time2 = this->timeCholesky[1];
 	this->timeChoSec = this->diff(time1,time2,1);//SEGUNDOS
 	this->timeChoNSec = this->diff(time1,time2,2);//NANOSEGUNDOS
-	cout<<this->timeChoSec<<":"<<this->timeChoNSec<<endl;
+	cout<<"Tiempo Cholesky segundos-nanosegundos: "<<this->timeChoSec<<":"<<this->timeChoNSec<<endl;
 	}
 void obtainTime::set_total_timeQR(){
 	timespec time1, time2;
@@ -102,7 +102,7 @@ void obtainTime::set_total_timeQR(){
 	time2 = this->timeQR[1];
 	this->timeQRSec = this->diff(time1,time2,1);//SEGUNDOS
 	this->timeQRNSec = this->diff(time1,time2,2);//NANOSEGUNDOS
-	cout<<this->timeQRSec<<":"<<this->timeQRNSec<<endl;
+	cout<<"Tiempo QR segundos-nanosegundos: "<<this->timeQRSec<<":"<<this->timeQRNSec<<endl;
 	}
 void obtainTime::set_total_timeGivens(){
 	timespec time1, time2;
@@ -110,7 +110,7 @@ void obtainTime::set_total_timeGivens(){
 	time2 = this->timeGivens[1];
 	this->timeGivSec = this->diff(time1,time2,1);//SEGUNDOS
 	this->timeGivNSec = this->diff(time1,time2,2);//NANOSEGUNDOS
-	cout<<this->timeGivSec<<":"<<this->timeGivNSec<<endl;
+	cout<<"Tiempo Givens segundos-nanosegundos: "<<this->timeGivSec<<":"<<this->timeGivNSec<<endl;
 	}
 void obtainTime::set_total_timeSeidel(){
 	timespec time1, time2;
@@ -118,7 +118,7 @@ void obtainTime::set_total_timeSeidel(){
 	time2 = this->timeSeidel[1];
 	this->timeSeiSec = this->diff(time1,time2,1);//SEGUNDOS
 	this->timeSeiNSec = this->diff(time1,time2,2);//NANOSEGUNDOS
-	cout<<this->timeSeiSec<<":"<<this->timeSeiNSec<<endl;
+	cout<<"Tiempo Seidel segundos-nanosegundos: "<<this->timeSeiSec<<":"<<this->timeSeiNSec<<endl;
 	
 	}
 long obtainTime::get_timeLUSec(){

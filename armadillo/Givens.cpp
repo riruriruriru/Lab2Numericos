@@ -8,7 +8,6 @@ using namespace std;
 
 void Givens::set_values (mat A){
 	sp_mat Q, R;
-	;
 	double raiz, s, c;
 	double xi, xj;
 	int i=0;
@@ -30,11 +29,8 @@ void Givens::set_values (mat A){
 					
 				} 
 			}
-			
-			//cout<<"iteracion: i-j "<< j <<"-" <<i<<endl;
 		}
 		
-	cout<<"Terminando givens..."<<endl;
 	this->Q = Q;
 	this->R = R;
 	this->A = A;
